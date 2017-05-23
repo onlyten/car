@@ -1,0 +1,106 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">职务管理</h1>
+        <ul class="breadcrumb">
+            <li>内部管理</li>
+            <li class="active">职务管理</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+	<div class="main-content">
+		<form enctype="multipart/form-data" action="{:U('zhiwu_delete_update')}" method="post" >
+			<div class="btn-toolbar list-toolbar col-md-12">　　　　　　　　　　　　　　　　　　　
+			    <a href="{:U('zhiwu_add')}" class="btn btn-primary"><i class="fa fa-plus"></i> 添加职务</a>　　　　　　　　　
+			    <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> 删除职务</button>
+			</div>
+			<!-- <h1 class="page">Premium User List</h1> -->
+			<h3 class="page-tagline"></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<thead>
+							<tr style="background: #0099FF;color:#FFFFFF">
+								<th>序号</th>
+								<th>职务名称</th>
+								<th>备注</th>
+								<th>是否管理员</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='zhiwu' id='vo'>
+							<tr>
+								<td> <input type="checkbox" name="delete_id[]" value="{$vo['id']}">&nbsp;&nbsp;{$vo['id']}</td>
+								<td>{$vo['zhiwu_name_ch']}</td>
+								<td>{$vo['remark']}</td>
+								<td>
+									<if condition="$vo['admin_or'] eq 1 ">是
+									    <else /> 否
+									</if>
+								</td>
+								<td>
+									<a href="{:U('zhiwu_modify',array('zhiwu_id'=>$vo['id']))}">编辑</a>&nbsp;&nbsp;
+									<a href="{:U('Quanxian/quanxian_fenpei',array('zhiwu_id'=>$vo['id']))}">分配权限</a>&nbsp;&nbsp;
+								</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</form>
+		<input type="text" value="all" id="page_condition" style="display:none;" />
+		<input type="text" value="" id="order_condition"  style="display:none;" />
+		<div class="result page" id='footer_div' style="text-align:center"><font id='wc'>共 {$zhiwu_count} 条记录  {$page_now}/{$zhiwu_pagenum} 页 </font>  <a class="pre_page" href="#">上一页</a>  <a class="next_page" href="#">下一页</a>  跳至<input style="width:25px;" class="jump_page" type="text"/> 页 &nbsp; <input type="button" class="btn btn-primary btn-sm jump_button" value="提交">  </div>
+	</div>
+	<!-- 模板继承，js函数写到block里 -->
+	<script type="text/javascript">
+		$('.next_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == {$zhiwu_pagenum}) {
+				alert('当前页为最后一页');
+			}else{
+				location.href = "{:U('zhiwu_list',array('page_now'=>$page_now+1))}";
+			};
+		});
+
+		$('.pre_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == 1) {
+				alert('当前页为第一页');
+			}else{
+				location.href = "{:U('zhiwu_list',array('page_now'=>$page_now-1))}";
+			};
+		});
+
+		$('.jump_button').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ( parseInt($('.jump_page').val()) < 1 || parseInt($('.jump_page').val()) > {$zhiwu_pagenum} ) {
+				alert('超过页数范围');
+			}else{
+				location.href = "{:U('zhiwu_list')}/page_now/"+$('.jump_page').val();
+			};
+		});
+
+		$('#zhiwu_search').on('click', function() {
+			location.href = "{:U('zhiwu_list')}/search_condition/"+$('#search_condition').val();
+		});
+
+		$(document).ready(function() {
+			if ('{$search_condition}' != '') {
+				$('#search_condition').val('{$search_condition}');
+			};
+		});
+	</script>
+</block>
+
+
+		
+		

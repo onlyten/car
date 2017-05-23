@@ -1,0 +1,183 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">修改广告详情</h1>
+        <ul class="breadcrumb">
+            <li>广告详情</li>
+            <li class="active">修改广告详情</li>
+        </ul>
+    </div>
+</block>
+<block name="style-header">
+ <link href="__STYLE__/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="__STYLE__/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+        <link rel="stylesheet" href="__CSS__/font-awesome.css">
+		 <link rel="stylesheet" type="text/css" href="__CSS__/theme.css">
+        <link rel="stylesheet" type="text/css" href="__CSS__/premium.css">
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+		<style>
+			form {
+				margin: 0;
+			}
+			textarea {
+				display: block;
+			}
+		</style>
+		<link rel="stylesheet" href="http://serv2.matesofts.com/aishang/Public/kindeditor/themes/default/default.css" />
+		<script charset="utf-8" src="http://serv2.matesofts.com/aishang/Public/kindeditor/kindeditor-min.js"></script>
+		<script charset="utf-8" src="http://serv2.matesofts.com/aishang/Public/kindeditor/lang/zh_CN.js"></script>
+		<script>
+			KindEditor.ready(function(K) {
+				K.create('textarea[name="guanggao_xiangqing"]', {
+					autoHeightMode : true,
+					afterCreate : function() {
+						this.loadPlugin('autoheight');
+					}
+				});
+			});
+		</script>
+
+
+
+</block>
+<block name="main-content">
+	<div class="main-content">
+	<form enctype="multipart/form-data" action="{:U('guanggao_modify_update',array('guanggao_id'=>$guanggao[0]['id']))}" method="post" >
+		<div class="btn-toolbar list-toolbar col-md-6">
+			<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">广告名: <span style="color:red">*</span></label>
+				<div ></br>
+		    <input type="text" name="guanggao_name"  id="guanggao_name" class="form-control" value="{$guanggao[0]['guanggao_name']}"  />
+		   
+		</div>
+		<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">广告内容: <span style="color:red">*</span></label>
+				<div ></br>
+					
+				<textarea name="guanggao_content" class="form-control" id="guanggao_content" >{$guanggao[0]['guanggao_content']}</textarea>
+				</div>
+		   </div>
+		   <div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">排序</label>
+				<div class="col-md-12" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="guanggao_weight" id="guanggao_weight" placeholder="" value="{$guanggao[0]['guanggao_weight']}" >
+
+				</div>
+			</div>
+
+	       <div class="control-group">
+				<label for="insertimage"class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">广告图片&nbsp&nbsp<span style="color:red">*建议大小(宽720高400)</span></label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<div class="controls">
+						<a id="preview">
+						    <img id='imghead1' src="http://101.201.148.160/car/Public/upload/img/{$guanggao[0]['guanggao_img']}" style="max-width:200px;height:auto;">
+						</a>
+						<input id="picurl" name="picurl" class="input-medium" type="file" onChange="previewImage(this)"  style="margin-bottom:10px;">
+					</div>
+				</div>
+			</div>
+
+ <div class="form-group">
+	
+            <div class="form-group">
+				<label class="col-md-12 " style="padding:0px 0px 5px 0px;">广告链接: </label>
+		    		<div class="col-md-12" style="padding:0px 0px 10px 0px;">
+		    			<input type="text" class="form-control" name="guanggao_lianjie" id="guanggao_lianjie" value="{$guanggao[0]['guanggao_lianjie']}"></input>
+		   			</div>
+			</div></br>
+		
+                   
+            <br />
+            <br />
+            </div>
+           </label>
+
+
+		 
+					<div class="btn-toolbar list-toolbar col-md-offset-2 col-md-10" style="margin-top:20px;margin-bottom:20px;">
+				    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保 存</button>
+					<a href="{:U('guanggao_list')}" class="btn btn-danger"><i class="glyphicon glyphicon-list"></i> 返回列表</a>
+			
+			</form>
+
+
+			<script>
+		//图片上传
+		function previewImage(file)
+		{
+		var MAXWIDTH  = 260;
+		var MAXHEIGHT = 100;
+		var div = document.getElementById('preview');
+		if (file.files && file.files[0])
+		{
+		div.innerHTML ='<img id=imghead1>';
+		var img = document.getElementById('imghead1');
+		img.onload = function(){
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		img.width  =  rect.width;
+		img.height =  rect.height;
+		//                 img.style.marginLeft = rect.left+'px';
+		img.style.marginTop = rect.top+'px';
+		}
+		var reader = new FileReader();
+		reader.onload = function(evt){img.src = evt.target.result;}
+		reader.readAsDataURL(file.files[0]);
+		}
+		else //兼容IE
+		{
+		var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		file.select();
+		var src = document.selection.createRange().text;
+		div.innerHTML = '<img id=imghead1>';
+		var img = document.getElementById('imghead1');
+		img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		}
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		var param = {top:0, left:0, width:width, height:height};
+		if( width>maxWidth || height>maxHeight )
+		{
+		rateWidth = width / maxWidth;
+		rateHeight = height / maxHeight;
+		
+		if( rateWidth > rateHeight )
+		{
+		param.width =  maxWidth;
+		param.height = Math.round(height / rateWidth);
+		}else
+		{
+		param.width = Math.round(width / rateHeight);
+		param.height = maxHeight;
+		}
+		}
+		
+		param.left = Math.round((maxWidth - param.width) / 2);
+		param.top = Math.round((maxHeight - param.height) / 2);
+		return param;
+		}
+				window.document.onkeydown = function(e) {
+					if ('' == document.activeElement.id) {
+						var e=e || event;
+						var currKey=e.keyCode || e.which || e.charCode;
+						if (8 == currKey) {
+							return false;
+						}
+					}
+				};
+		</script>
+		
+
+</block>
+
+
+		
+		
+
+
+

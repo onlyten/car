@@ -1,0 +1,321 @@
+<extend name="Public:base" />
+<block name="style-header">
+ <link href="__STYLE__/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="__STYLE__/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+        <link rel="stylesheet" href="__CSS__/font-awesome.css">
+		 <link rel="stylesheet" type="text/css" href="__CSS__/theme.css">
+        <link rel="stylesheet" type="text/css" href="__CSS__/premium.css">
+
+</block>
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">会员管理</h1>
+        <ul class="breadcrumb">
+            <li>会员管理</li>
+            <li class="active">会员管理</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+	<div class="main-content">
+		<!-- <div class="row">
+			<div class="col-md-12">
+				<button type="button" class="btn btn-danger" id="msg_single"  data-toggle="modal" data-target="#myModal_one" style="margin-bottom: -490px; margin-left: 180px; width: 120px;">个体发布消息</button>	
+				<button type="button" class="btn btn-primary" id="user_search"  data-toggle="modal" data-target="#myModal_all"  style="margin-bottom: -490px; margin-left: 75px; width: 120px;">批量发布消息</button>			
+			</div>
+		</div> -->
+		<form enctype="multipart/form-data" action="{:U('user_list')}" method="post" >
+			<div class="form-group">
+                <label for="dtp_input2" class="col-md-2 control-label" style="width: 100px;">注册时间</label>
+                <div class="input-group date form_date col-md-3" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" type="text" value="" readonly name="start_time">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+				<input type="hidden" id="start_time" value="" />
+            </div>
+			<div class="form-group">
+                <label for="dtp_input2" class="col-md-2 control-label" style="width: 100px;">　　至</label>
+                <div class="input-group date form_date col-md-3" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" type="text" value="" readonly name="end_time">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+				<input type="hidden" id="end_time" value="" />
+            </div>
+			<div>
+				<label class="control-label" style="float:left;"><br>&nbsp;&nbsp;&nbsp;&nbsp;电话号码：&nbsp;　</label>
+				<input type="text" class="form-control" style="width: 290px;float:left;margin-top:10px;" name="search_condition" />
+				
+			</div><br><br><br>
+		<div class="form-group">
+			<!-- <label class="col-md-1 control-label" style="padding:0px 0px 5px 0px;width: 100px;">　是否员工：</label> -->
+			<div>
+				<!-- <label class="radio-inline">
+				  　<input type="radio" name="staff_display" id="staff_display" value="1"> 是
+				</label>
+				<label class="radio-inline">
+				 　 <input type="radio" name="staff_display1" id="staff_display1" value="0"> 否
+				 </label><br><br> -->
+				 <button type="submit" class="btn btn-primary" id="user_search" style="width:120px;float:left;margin-top:20px;margin-left:10px;"><i class="glyphicon glyphicon-search"></i>搜索</button>
+
+				
+			</div>
+		</div>
+		
+	</div></form><br><br><br><br><br><br><br><br>
+		<form enctype="multipart/form-data" action="{:U('user_delete_update')}" method="post" >
+			<div class="btn-toolbar list-toolbar col-md-12">　　　　　　　　　　　　　　　　　　　
+				<button type="submit" class="btn btn-danger"  style="width: 12%; float: left; margin-top: -196px; margin-bottom: 0px; border-top-width: 1px; margin-left: 200px;"></i>删除</button>
+			</div>
+			
+			<!-- <h1 class="page">Premium User List</h1> -->
+			<h3 class="page-tagline"></h3>
+			
+			<div class="row">
+				<div class="col-md-12" style="margin-top:-175px;">
+					<table class="table table-bordered">
+						<thead>
+							<tr style="background: #0099FF;color:#FFFFFF">
+								<th>用户ID</th>
+								<!-- <th>用户类型</th> -->
+								<th>用户电话</th>
+								<th>用户密码</th>
+								<!-- <th>用户昵称</th> -->
+								<th>用户名</th>
+								<th>公司名称</th>
+								<!-- <th>国家</th>
+								<th>省份</th>
+								<th>市区</th>
+								<th>性别</th>
+								<th>头像</th> -->
+								<th>注册时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='user' id='vo'>
+							<tr>
+								<td> <input type="checkbox" name="delete_id[]" value="{$vo['id']}">　{$vo['id']}　　　　　</td>
+								<!--<td>{$vo['user_openid']}</td>-->
+								<!-- <td><if condition="$vo['user_type'] eq 0">商家
+								<elseif condition="$vo['user_staff'] eq 0"/>用户
+								<else/>员工
+								</if>　　　　　　</td> -->
+								<td>{$vo['user_phone']}　</td>
+								<td>{$vo['user_password']}　　　　　</td>
+								<!-- <td>{$vo['user_wx_nickname']}　　　　　</td> -->
+								<td>{$vo['user_name']}　　　　　</td>
+								<td>{$vo['company_name']}　　　　　</td>
+								<!-- <td>{$vo['user_wx_country']}　　　　　</td>
+								<td>{$vo['user_wx_province']}　　　　　</td>
+								<td>{$vo['user_wx_city']}　　　　　</td>
+								<td><if condition="$vo['user_wx_sex'] eq 1">男
+								<else/>女
+								</if>　　　　</td>
+								<td><img src='{$vo['user_wx_headimgurl']}' border=0 width=100 height=100></td> -->
+								<td>{$vo['user_register_time']}　　　　　</td>
+								<td>
+									<a href="{:U('Dingdan/dingdan_list',array('user_phone'=>$vo['user_phone']))}">查看订单</a><!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+									<a href="{:U('user_list',array('wx_user_id'=>$vo['id']))}" >绑定员工&nbsp;&nbsp;&nbsp;&nbsp;</a>
+									<a href="{:U('user_list',array('wx_user_id_rcv'=>$vo['id']))}" >推送</a>
+								</td> -->
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</form>
+		<input type="text" value="all" id="page_condition" style="display:none;" />
+		<input type="text" value="" id="order_condition"  style="display:none;" />
+		<div class="result page" id='footer_div' style="text-align:center"><font id='wc'>共 {$user_count} 条记录  {$page_now}/{$user_pagenum} 页 </font>  <a class="pre_page" href="#">上一页</a>  <a class="next_page" href="#">下一页</a>  跳至<input style="width:25px;" class="jump_page" type="text"/> 页 &nbsp; <input type="button" class="btn btn-primary btn-sm jump_button" value="提交">  </div>
+		
+		
+		
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal_one" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">个体发布消息</h4>
+	      </div>
+	      <form action="{:U('user_msg_single')}" method="post">
+	      	<div class="modal-body" style="height:260px;">
+		      <div class="col-md-12">
+		      	<span class="col-md-3" style="height:34px;line-height:34px;">模板类型：</span>
+				<span class="col-md-9" style="height:34px;line-height:34px;">
+					<select class="form-control">
+					  <option>通知</option>
+					</select>
+				</span>
+				<span class="col-md-3" style="height:34px;line-height:34px;">用户姓名：</span>
+				<span id='user_name' class="col-md-9" style="height:34px;line-height:34px;"></span>
+		      </div>
+		      <input type="hidden" class="form-control" name="user_openid" id="user_openid" />
+		      <div class="col-md-12">
+			      <div class="col-md-3" style="height:34px;line-height:34px;">通知标题：</div>
+			      <div class="col-md-9"><input type="text" class="form-control" name="msg_title" /></div>
+		      </div>
+		      <div class="col-md-12" style="margin-top:10px;">
+			      <div class="col-md-3" style="height:34px;line-height:34px;">通知内容：</div>
+			      <div class="col-md-9"><textarea class="form-control" name="msg_content" rows="3"></textarea></div>
+		      </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭</button>
+		        <button type="submit" class="btn btn-primary">发 送</button>
+		      </div>
+	      </form>
+	      
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal_all" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">批量发布消息</h4>
+	      </div>
+	      <form action="{:U('user_msg_group')}" method="post">
+	      <div class="modal-body" style="height:260px;">
+		      <div class="col-md-12">
+		      	<span class="col-md-3" style="height:34px;line-height:34px;">模板类型：</span>
+				<span class="col-md-9" style="height:34px;line-height:34px;">
+					<select class="form-control">
+					  <option>通知</option>
+					</select>
+				</span>
+				<span class="col-md-3" style="height:34px;line-height:34px;"></span>
+				<span class="col-md-4" style="height:34px;line-height:34px;"><input type="radio" name="user_type" value="worker">全部员工</span>
+				<span class="col-md-4" style="height:34px;line-height:34px;"><input type="radio" name="user_type" value="user">全部用户</span>
+		      </div>
+		      <div class="col-md-12">
+			      <div class="col-md-3" style="height:34px;line-height:34px;">通知标题：</div>
+			      <div class="col-md-9"><input type="text" class="form-control" name="msg_title" /></div>
+		      </div>
+		      <div class="col-md-12" style="margin-top:10px;">
+			      <div class="col-md-3" style="height:34px;line-height:34px;">通知内容：</div>
+			      <div class="col-md-9"><textarea class="form-control" name="msg_content" rows="3"></textarea></div>
+		      </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭</button>
+	        <button type="submit" class="btn btn-primary">发 送</button>
+	      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+
+<script type="text/javascript" src="__JS__/jquery-1.11.1.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__STYLE__/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__STYLE__/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__STYLE__/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__STYLE__/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+
+
+
+	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
+		language:'zh-CN',
+    });
+
+
+
+
+
+
+		$('.next_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == {$user_pagenum}) {
+				alert('当前页为最后一页');
+			}else{
+				location.href = "{:U('user_list',array('page_now'=>$page_now+1))}";
+			};
+		});
+
+		$('.pre_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == 1) {
+				alert('当前页为第一页');
+			}else{
+				location.href = "{:U('user_list',array('page_now'=>$page_now-1))}";
+			};
+		});
+
+		$('.jump_button').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ( parseInt($('.jump_page').val()) < 1 || parseInt($('.jump_page').val()) > {$user_pagenum} ) {
+				alert('超过页数范围');
+			}else{
+				location.href = "{:U('user_list')}/page_now/"+$('.jump_page').val();
+			};
+		});
+
+		//$('#user_search').on('click', function() {
+		//	location.href = "{:U('user_list')}/search_condition/"+$('#search_condition').val()+"/start_time/"+$('#start_time').val()+"/end_time/"+$('#end_time').val();
+		//});
+
+		$(document).ready(function() {
+			if ('{$search_condition}' != '') {
+				$('#search_condition').val('{$search_condition}');
+			};
+			if ('{$start_time}' != '') {
+				$('#strat_time').val('{$start_time}');
+			};
+			if ('{$end_time}' != '') {
+				$('#end_time').val('{$end_time}');
+			};
+			if ('{$staff_display}' != '') {
+				$('#staff_display').val('{$staff_display}');
+			};
+			if ('{$staff_display1}' != '') {
+				$('#staff_display1').val('{$staff_display1}');
+			};
+		});
+
+		$('#msg_single').on('click', function() {
+			 $('input[name="delete_id[]"]:checked').each(function(){    
+			 	<volist name='user' id='vo'>
+					if ('{$vo['id']}' == $(this).val()) {
+						$('#user_name').html('{$vo['user_name']}');
+						$('#user_openid').val('{$vo['user_openid']}');
+					};
+			 	</volist>
+				  }); 
+
+		});
+
+		
+
+
+	</script>
+</block>
+<block name="style-footer"></block>
+
+		
+		

@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>车型报价</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+		<script src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+		<script type="text/javascript" src="__JS__/store.js"></script>
+		<style type="text/css">
+			.a_active{
+				color: #9900CC;
+			}
+			.a_unactive{
+				color: #808285;
+			}
+			.div_active{
+				background: #099fde;
+			}
+			.div_unactive{
+				background: #f9f9f9;
+			}
+			.wangzhi a:visited{
+				color: #099fde;
+				text-decoration: none;
+			}
+			.wangzhi a:hover{
+				color: #099fde;
+				text-decoration: none;
+			}
+			a:hover{
+				color: #9900CC;
+				text-decoration: none;
+			}
+			.aaa{ height:22px;  color:#666;   font-size:14px;}
+			.left{ float:left;}
+			li{list-style-type:none; display:block;}
+			dl {
+				display: block;
+				-webkit-margin-before: 1em;
+				-webkit-margin-after: 1em;
+				-webkit-margin-start: 0px;
+				-webkit-margin-end: 0px;
+			}
+			dt {
+				display: block;
+			}
+			dd {
+				display: block;
+				-webkit-margin-start: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+		<!-- 	<div class="row">
+				<div class="col-sm-12" style="background: #099fde;text-align:center;color:#fff;font: 600 1.286em/2 Tahoma;height:50px;line-height:50px; position: relative;">车型报价
+                <div style="position: absolute; top:0px; left: 5px;"><a class="back" href="javascript:history.back();"><img src="http://101.201.148.160/car/Public/images/back-4.png" width="17px" height="22px"></a></div>
+				</div>
+				<input type="hidden" value="1" id="tab_active">
+			</div> -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-12" style="padding:0px 0px 0px 0px;">
+					<div role="tabpanel" class="col-xs-12 col-sm-12" style="padding:0px 0px 0px 0px;background: #f9f9f9;text-align:center;height:45px;line-height:45px;">
+					<a class="back" href="javascript:history.back();">
+					<sapn style="float:left;margin-left:10px;">
+						<img src="http://101.201.148.160/car/Public/images/back-4.png" width="18px" height="20px">
+					</sapn>
+					</a>
+						<a href="#home1" aria-controls="home" role="tab" data-toggle="tab" style="font-size: 16px;font: 400 15px/1.5 'Hiragino Sans GB','Microsoft YaHei',hei,Arial,'Lucida Grande',Verdana;" class="a_unactive" id="mg_a">{$kuanxing[3]['kuanxing_name_ch']}</a>
+					</div>
+					<div class="col-xs-12 col-sm-12 div_unactive" id="mg_div" style="height:3px;"></div>
+				</div>
+				
+			</div>
+			<div class="tab-content" class="col-sm-12">
+				<div role="tabpanel" class="tab-pane" id="home1">
+
+					<foreach name="price_guige_three" item="value" key="key" >
+						<if condition="$price_guige_three neq null ">
+                            <div class="row">
+							<div class="col-xs-12 col-sm-12" style="margin-top:1px;padding:0px;">
+								<div style="background-image:url('http://101.201.148.160/car/Public/upload/img/{$value['car_img']}');background-size:100% 190px;background-repeat:no-repeat;margin-left:5%;width:90%;height:190px;">
+									<if condition="$value['tejia'] eq 1">
+										<img src="http://101.201.148.160/car/Public/upload/img/tt.png" style="margin-left:0;width:10%;height:60px;"/>
+									</if>
+									<if condition="$value['newcar'] eq 1">
+										<img src="http://101.201.148.160/car/Public/upload/img/ttt.png" style="margin-left:0;width:10%;height:60px;"/>
+									</if>
+									<span style="padding:2px 12px 2px 12px;background-color:#B23AEE; float: right; margin-top: 166px;">
+									<font size="2px" color="white">{$value["pritype_name"]}</font></span>
+								</div>
+
+									<div class="col-xs-12 col-sm-12" style="padding:0px;margin-bottom:10px;">
+										<div class="col-xs-12 col-sm-12" style="font-size:17px;color:#099fde; font-weight: bold;"><a href="{$value['wangzhi']}" class="wangzhi">{$value['year_name_ch']}{$value['kuanxing_name_ch']}{$value['factory_name_ch']}{$value['chexing_name_ch']}{$value['guige_name_ch']}</a></div>
+									</div>
+									<div style="padding:0px;color:#099fde;font-size:15px;float:left;margin-left:16px";>颜色：
+										<span style="font-size:15px;"> {$value['color']}</span>
+										</div>
+									<div style="padding:0px;color:#099fde;font-size:15px;float:right;margin-right:12px";>协议号：
+										<span style="font-size:15px;"> {$value['pihao']|substr=###,"-8"} </span>
+										</div>
+								
+
+								<div class="col-xs-12 col-sm-12 " style="padding:0px;margin-bottom:10px;text-align:center;background-color:#EEEEEE;">
+									<center style="margin-top: 5px; margin-bottom: 5px;"><font color=#7f7f7f>剩余数量&nbsp;:&nbsp;{$value['surplus']}台</font></center>
+								</div>
+							
+								<!-- <div class="col-xs-12 col-sm-12 " style="padding:0px;margin-bottom:10px;text-align:center;background-color:#EEEEEE;">
+									<if condition="$value['dtime'] eq '' ">在途中
+									<elseif condition="$value['dtime'] elt '0' "/>已到港
+									<else/>距预计到港时间：{$value['dtime']}天
+									</if>
+								</div> -->
+									<!-- //////////////////////<foreach name="value['zifu']" item="v" key="k" > -->
+										<!-- <if condition="$v['state'] eq 0">
+										<if condition="$v['num'] neq '' ">
+									<div class="col-xs-12 col-sm-12 pmin" style="padding:0px; background-color:#EEEEEE;">
+										<div class="col-xs-1"></div>
+											<div class="col-xs-10 col-sm-10" style="padding:0px;height:40px;line-height:40px; border-bottom: 2px solid #fff;  ">
+												<span class="col-xs-4 col-sm-4" style="padding:0px; padding-left: 20px"><s>{$v['price']}</s></span>
+												<span class="col-xs-4 col-sm-4" style="padding:0px; padding-left: 20px">
+													<s>{$v['num']}万<if condition="$v['type'] eq '人民币'">
+															<span class="glyphicon glyphicon-yen" aria-hidden="true" style="color:#FF6633;"></span>
+														</if>
+														<if condition="$v['type'] eq '欧元'">
+															<span class="glyphicon glyphicon-euro" aria-hidden="true" style="color:#FF6633;"></span>
+														</if>
+														<if condition="$v['type'] eq '美元'">
+															<span class="glyphicon glyphicon-usd" aria-hidden="true" style="color:#FF6633;"></span>
+														</if></s>
+												</span>
+												<span class="col-xs-4 col-sm-4" style="padding:0px; text-align: center;">
+												购买
+												</span>
+											</div>
+											<div class="col-xs-1"></div>
+											</div>
+										</if>
+										</if> -->
+										<!-- <if condition="$v['state'] eq 1"> -->
+										<if condition="$value['surplus'] neq 0 ">
+											<div class="col-xs-12 col-sm-12" style="padding:0px;">
+                                            <div class="col-xs-11 col-sm-11" style="padding:0px;height:40px;line-height:40px; border-bottem: 2px solid #fff; ">
+												<span class="col-xs-6 col-sm-6" style="padding:0px; padding-left: 5px">
+														<if condition="$v['type'] eq '人民币'">
+															<span class="glyphicon glyphicon-yen" aria-hidden="true" style="color:#FF6633;"></span>
+														</if>
+														<if condition="$v['type'] eq '欧元'">
+															<span class="glyphicon glyphicon-euro" aria-hidden="true" style="color:#FF6633;"></span>
+														</if>
+														<if condition="$v['type'] eq '美元'">
+															<span class="glyphicon glyphicon-usd" aria-hidden="true" style="color:#FF6633;"></span>
+														</if>
+														<if condition="$v['num'] neq '' ">
+														<font size="5px" color="red">{$v['num']}万</font>
+														</if>
+														<if condition="$v['num'] eq '' ">
+														<font size="5px" color="red">电议</font>
+														</if>
+															<span style="padding:0px;background-color:#EEEEEE;">
+															<if condition="$value['dtime'] eq '' ">{$value["pritype_name"]}
+															<elseif condition="$value['dtime'] elt '0' "/>已到港
+															<else/>{$value['dtime']}天后到港
+															</if>
+															</span>
+
+														</span>
+														<span class="col-xs-3 col-sm-3" style="padding:0px;height:30px;left:0px;top:-1px;">
+															<a href="{:U('car_peizhi',array('price_id'=>$value['price_id']))}"><span style="padding:6px 5px 6px 5px;background-color:#3CB371;"><font size="2px" color="white"><img src="http://101.201.148.160/car/Public/images/can.png" style="height:50%;width:auto;border:0px;">&nbsp;配置&nbsp;</font></span></a>
+														</span>	
+														<span class="col-xs-3 col-sm-3" style="padding:0px;height:30px;left:10px;top:-1px;">
+															<a href="{:U('car_buy',array('user_phone' => $user_phone , 'price_id' => $value['price_id'] , 'key' => $k))}" style=" color:red;"><span style="padding:6px 5px 6px 5px;background-color:#CD8500;"><font size="2px" color="white"><img src="http://101.201.148.160/car/Public/images/buy.png" style="height:50%;width:auto;border:0px;">&nbsp;购买&nbsp;</font></span></a>
+														</span>						
+											</div>
+                                            <div class="col-xs-1"></div>
+											</div>
+										<!-- </if> -->
+										</if>
+										<!-- <if condition="$v['state'] eq 2">
+										<if condition="$v['num'] neq null ">
+											<div class="col-xs-12 col-sm-12" style="padding:0px;background-color:#EEEEEE;">
+											 <div class="col-xs-1"></div>
+											  <div class="col-xs-10 col-sm-10" style="padding:0px;height:40px;line-height:40px; border-top: 2px solid #fff; ">
+												<span class="col-xs-4 col-sm-4" style="padding:0px; padding-left: 20px;">{$v['price']}</span>
+												<span class="col-xs-4 col-sm-4" style="padding:0px; padding-left: 20px">
+													{$v['num']}万<if condition="$v['type'] eq '人民币'">
+															<span class="glyphicon glyphicon-yen" aria-hidden="true" style="color:#FF6633;"></span>
+														</if>
+														<if condition="$v['type'] eq '欧元'">
+															<span class="glyphicon glyphicon-euro" aria-hidden="true" style="color:#FF6633;"></span>
+														</if>
+														<if condition="$v['type'] eq '美元'">
+															<span class="glyphicon glyphicon-usd" aria-hidden="true" style="color:#FF6633;"></span>
+														</if>
+												</span>
+												<span class="col-xs-4 col-sm-4" style="padding:0px; color:red; text-align: center;">
+													<a href="{:U('car_buy',array('openid' => $openid , 'price_id' => $value['price_id'] , 'nickname' => $nickname , 'key' => $k))}" style=" color:red;">购买</a>
+												</span>									
+											</div>
+											<div class="col-xs-1"></div>
+											</div>
+										</if>
+										</if> -->
+									<!-- </foreach> -->
+								</div>				
+							</div>
+						<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" />
+						</if>
+					</foreach>
+						<if condition="$price_guige_three eq null ">
+						<div style="width:100%; margin:0 auto; height:auto;">
+							<p style="text-align: center;"><img src="http://101.201.148.160/car/Public/images/sorry.png"/></p>
+						</div> 
+						</if>
+
+					<!-- 占位 -->
+					<div class="col-xs-12 col-sm-12" style="height:40px;"></div>
+
+				</div>		
+				
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12" style="text-align:center;height:40px;line-height:40px;bottom:0;padding:0px;position:fixed;">
+					<div class="col-xs-6" style="background: #EEEEEE;text-align:center;color:#000000;font: 200 1em/2 Tahoma;height:40px;line-height:40px;border:1px solid #fff;" id="div_search" data-toggle="modal" data-target="#myModal_search" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;搜索</div>
+					<div class="col-xs-6" style="background: #EEEEEE;text-align:center;color:#000000;font: 200 1em/2 Tahoma;height:40px;line-height:40px;border:1px solid #fff;" id="div_order"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>&nbsp;按时价排序</div>
+				</div>
+			</div>
+			
+			
+		</div>
+
+		<!-- Modal -->
+		
+		<!-- Modal -->
+		<div class="modal fade" id="myModal_search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="margin-top:60px;">
+				<div class="modal-content">
+				<form  class="form-horizontal" action="{:U('car_search')}" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">车型报价搜索</h4>
+					</div>
+					<div class="modal-body" style="height:250px;">
+						
+						<div class="col-xs-12 col-sm-12" style="padding:0px 0px 15px 0px;">
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;padding:0px;margin-bottom:15px;">热销车型：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;padding:0px;margin-bottom:15px;">
+								<foreach name="rexiao_car" item="value" key="key" >
+									<a href="{:U('car_buy',array('openid' => $openid , 'price_id' => $value['price_id'] , 'nickname' => $nickname))}">
+										<span class="col-xs-4 col-sm-4" style='padding:0px 2px 0px 2px;height:30px;line-height:15px;background-color:#f0ad4e;border-right:5px solid #FFFFFF;color:#FFFFFF;text-align:center;font-size:12px;'>
+										{$value['year_name_ch']}{$value['kuanxing_name_ch']}{$value['factory_name_ch']}{$value['chexing_name_ch']}{$value['guige_name_ch']}
+									</span>
+									</a>
+								</foreach>
+								<!-- <span class="col-xs-4 col-sm-4" style='padding:0px 2px 0px 2px;height:30px;background-color:#f0ad4e;border-right:5px solid #FFFFFF;color:#FFFFFF;text-align:center;'>
+									车型2
+								</span>
+								<span class="col-xs-4 col-sm-4" style='padding:0px 2px 0px 2px;height:30px;background-color:#f0ad4e;border-right:5px solid #FFFFFF;color:#FFFFFF;text-align:center;'>
+									车型3
+								</span> -->
+							</span>
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;margin-bottom:15px;">厂&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;margin-bottom:15px;">
+								<select class="form-control" name="factory" id="factory">
+									<option value="">请选择</option>
+									<foreach name="factory" item="value" key="key" >
+										<option value="{$value['id']}">{$value['factory_name_ch']}</option>
+									</foreach>
+								</select>
+							</span>
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;margin-bottom:15px;">车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;margin-bottom:15px;">
+								<select class="form-control" name="chexing" id="chexing">
+									<option value="">请选择</option>
+								</select>
+							</span>
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;margin-bottom:15px;">版&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;margin-bottom:15px;">
+								<select class="form-control" name="kuanxing">
+									<option value="">请选择</option>
+									<foreach name="kuanxing" item="value" key="key" >
+										<option value="{$value['id']}">{$value['kuanxing_name_ch']}</option>
+									</foreach>
+								</select>
+							</span>
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;margin-bottom:15px;">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;margin-bottom:15px;">
+								<select class="form-control" name="baojia">
+									<option value="all">全部</option>
+									<foreach name="pritype" item="value" key="key" >
+										<option value="{$value['id']}">{$value['pritype_name']}</option>
+									</foreach>
+								</select>
+							</span>
+							
+						</div>
+
+						
+						
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-info" type="submit">提&nbsp;交</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关&nbsp;闭</button>
+					</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+		// iphone手机要绑定click事件modal才显示
+		$('#div_search').on('click', function() {
+			// alert('123');
+		});
+
+		$('#factory').on('change', function() {
+			$.ajax({
+				type: "POST",
+		        url: "{:U('chexing_select')}",
+		        dataType: "json",
+		        data: "factory_id="+$('#factory').val(),
+		        success: function(msg){
+		        	html_chexing = "<option value=''>请选择</option>";
+		            $(msg).each(function(){ //遍历json数组
+				        html_chexing += "<option value=\""+this.id+"\">"+this.chexing_name_ch+"</option>";
+			        }); 
+			        $("#chexing").empty();
+		            $("#chexing").append(html_chexing);
+   
+		        }
+		    });
+		});
+
+		$('#mg_a').click(function() {
+			store.set('tab_active', '1');
+			// $('#tab_active').val('1');
+			$(this).removeClass("a_unactive");
+			$(this).addClass("a_active");
+			$('#mg_div').removeClass("div_unactive");
+			$('#mg_div').addClass("div_active");
+		});
+
+		$("#div_order").on('click', function() {
+			// alert(store.get('tab_active'));
+			// alert('{$car_order}');
+			if ('{$car_order}' == '0') {
+				car_order = '1';
+			};
+			if ('{$car_order}' == '1') {
+				car_order = '0';
+			};
+			// alert(car_order);
+			location.href = "{:U('car_more')}/car_order/"+car_order+"/tab_active/"+store.get('tab_active');
+		});
+
+		$(document).ready(function() {
+			// alert(store.get('tab_active'));
+			/*if ({$tab_active}) {
+				$('#tab_active').val('{$tab_active}');
+			};*/
+
+			store.set('tab_active', '{$tab_active}');
+			
+			 if (store.get('tab_active') == '1') {
+				$('#mg_a').tab('show');
+				$('#mg_a').removeClass("a_unactive");
+				$('#mg_a').addClass("a_active");
+				$('#og_a').removeClass("a_active");
+				$('#og_a').addClass("a_unactive");
+				$('#zd_a').removeClass("a_active");
+				$('#zd_a').addClass("a_unactive");
+				$('#mg_div').removeClass("div_unactive");
+				$('#mg_div').addClass("div_active");
+				$('#og_div').removeClass("div_active");
+				$('#og_div').addClass("div_unactive");
+				$('#zd_div').removeClass("div_active");
+				$('#zd_div').addClass("div_unactive");
+			 };
+			if (store.get('tab_active') == '2') {
+				$('#og_a').tab('show');
+				$('#og_a').removeClass("a_unactive");
+				$('#og_a').addClass("a_active");
+				$('#mg_a').removeClass("a_active");
+				$('#mg_a').addClass("a_unactive");
+				$('#zd_a').removeClass("a_active");
+				$('#zd_a').addClass("a_unactive");
+				$('#og_div').removeClass("div_unactive");
+				$('#og_div').addClass("div_active");
+				$('#mg_div').removeClass("div_active");
+				$('#mg_div').addClass("div_unactive");
+				$('#zd_div').removeClass("div_active");
+				$('#zd_div').addClass("div_unactive");
+			};
+			if (store.get('tab_active') == '3') {
+				$('#zd_a').tab('show');
+				$('#zd_a').removeClass("a_unactive");
+				$('#zd_a').addClass("a_active");
+				$('#mg_a').removeClass("a_active");
+				$('#mg_a').addClass("a_unactive");
+				$('#og_a').removeClass("a_active");
+				$('#og_a').addClass("a_unactive");
+				$('#zd_div').removeClass("div_unactive");
+				$('#zd_div').addClass("div_active");
+				$('#mg_div').removeClass("div_active");
+				$('#mg_div').addClass("div_unactive");
+				$('#og_div').removeClass("div_active");
+				$('#og_div').addClass("div_unactive");
+			};
+		});
+
+		</script>
+		
+	</body>
+</html>

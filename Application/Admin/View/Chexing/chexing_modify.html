@@ -1,0 +1,161 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">修改车型</h1>
+        <ul class="breadcrumb">
+            <li>车型管理</li>
+            <li class="active">修改车型</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+<script src="__JS__/chosen.jquery.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/chosen.css">
+	<div class="main-content">
+		<form enctype="multipart/form-data" action="{:U('chexing_modify_update',array('chexing_id'=>$chexing[0]['id']))}" method="post" >
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">厂商：</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<select class="chzn-select form-control" name="factory_id">
+						<volist name='factory' id='vo'>
+						  <option value='{$vo['id']}'>{$vo['factory_name_ch']}</option>
+						</volist>
+				    </select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">车型中文名:</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="chexing_name_ch" id="chexing_name_ch" placeholder="" value="{$chexing[0]['chexing_name_ch']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">车型英文名:</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="chexing_name_en" id="chexing_name_en" placeholder="" value="{$chexing[0]['chexing_name_en']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">车型拼音名:</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="chexing_name_py" id="chexing_name_py" placeholder="" value="{$chexing[0]['chexing_name_py']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">指导价:</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="guide_price" id="guide_price" placeholder="" value="{$chexing[0]['guide_price']}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label for="insertimage"class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">车型图标:</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<div class="controls">
+						<a id="preview">
+						    <img id='imghead1' src="__PICURL__/{$chexing[0]['chexing_img']}" style="max-width:200px;height:auto;">
+						</a>
+						<input id="picurl" name="picurl" class="input-medium" type="file" onChange="previewImage(this)"  style="margin-bottom:10px;">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">是否显示</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="chexing_display" id="chexing_display" value="1"> 显示
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="chexing_display" id="chexing_display" value="0"> 不显示
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">排序</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="chexing_weight" id="chexing_weight" placeholder="" value="{$chexing[0]['chexing_weight']}">
+				</div>
+			</div>			
+			<div class="form-group">
+					<div class="btn-toolbar list-toolbar col-md-offset-2 col-md-10" style="margin-top:20px;margin-bottom:20px;">
+				    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保 存</button>
+					<a href="{:U('chexing_list')}" class="btn btn-danger"><i class="glyphicon glyphicon-list"></i> 返回列表</a>
+			</div>
+		</form>		
+	</div>
+	<script>
+		//图片上传
+		function previewImage(file)
+		{
+		var MAXWIDTH  = 260;
+		var MAXHEIGHT = 100;
+		var div = document.getElementById('preview');
+		if (file.files && file.files[0])
+		{
+		div.innerHTML ='<img id=imghead1>';
+		var img = document.getElementById('imghead1');
+		img.onload = function(){
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		img.width  =  rect.width;
+		img.height =  rect.height;
+		//                 img.style.marginLeft = rect.left+'px';
+		img.style.marginTop = rect.top+'px';
+		}
+		var reader = new FileReader();
+		reader.onload = function(evt){img.src = evt.target.result;}
+		reader.readAsDataURL(file.files[0]);
+		}
+		else //兼容IE
+		{
+		var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		file.select();
+		var src = document.selection.createRange().text;
+		div.innerHTML = '<img id=imghead1>';
+		var img = document.getElementById('imghead1');
+		img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		}
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		var param = {top:0, left:0, width:width, height:height};
+		if( width>maxWidth || height>maxHeight )
+		{
+		rateWidth = width / maxWidth;
+		rateHeight = height / maxHeight;
+		
+		if( rateWidth > rateHeight )
+		{
+		param.width =  maxWidth;
+		param.height = Math.round(height / rateWidth);
+		}else
+		{
+		param.width = Math.round(width / rateHeight);
+		param.height = maxHeight;
+		}
+		}
+		
+		param.left = Math.round((maxWidth - param.width) / 2);
+		param.top = Math.round((maxHeight - param.height) / 2);
+		return param;
+		}
+				window.document.onkeydown = function(e) {
+					if ('' == document.activeElement.id) {
+						var e=e || event;
+						var currKey=e.keyCode || e.which || e.charCode;
+						if (8 == currKey) {
+							return false;
+						}
+					}
+				};
+	</script>
+	<script>
+	$(document).ready(function() {
+				$("input[name='chexing_display'][value='{$chexing[0]['chexing_display']}']").attr("checked",true);
+				$("select[name='factory_id']").val("{$chexing[0]['factory_id']}");
+				// 先赋值，再初始化
+			$(".chzn-select").chosen();
+			});
+	</script>
+</block>

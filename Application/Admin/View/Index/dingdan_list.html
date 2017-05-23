@@ -1,0 +1,163 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">规格管理</h1>
+        <ul class="breadcrumb">
+            <li>车型管理</li>
+            <li class="active">规格管理</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+	<div class="main-content">
+		<div class="btn-toolbar list-toolbar col-md-6" style="border:1px solid #cccccc;margin:-20px 10px 10px 10px;">
+			<label class="control-label" style="float:left;">品牌名称&nbsp;&nbsp;</label>
+			<select class="form-control"  id="search_condition">
+			<option>请选择</option>
+					<volist name='factory' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['factory_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">车型名称&nbsp;&nbsp;</label>
+			<select class="form-control">
+			<option>请选择</option>
+					<volist name='chexing' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['chexing_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">年款&nbsp;&nbsp;</label>
+			<select class="form-control">
+			<option>请选择</option>
+					<volist name='year' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['year_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">规格名称&nbsp;&nbsp;</label>
+			<select class="form-control">
+			<option>请选择</option>
+					<volist name='year' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['year_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">审核状态&nbsp;&nbsp;</label>
+			<select class="form-control">
+			<option>请选择</option>
+					<volist name='year' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['year_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">电话号码&nbsp;&nbsp;</label>
+			<select class="form-control">
+			<option>请选择</option>
+					<volist name='year' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['year_name_ch']}</option>
+					</volist>
+			</select>
+		    <button class="btn btn-danger" id="guige_search" style="width:20%;float:left;margin-top:10px;"><i class="glyphicon glyphicon-search"></i> 搜索</button>
+		</div><br><br><br><br><br><br><br><br><br><br>
+		<form enctype="multipart/form-data" action="{:U('guige_delete_update')}" method="post" >
+			<div class="btn-toolbar list-toolbar col-md-12">
+			    <!-- <a href="{:U('factory_add')}" class="btn btn-primary"><i class="fa fa-plus"></i> 添加厂商</a> -->
+			    <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> 删除厂商</button>
+			</div>
+			<!-- <h1 class="page">Premium User List</h1> -->
+			<h3 class="page-tagline"></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<thead>
+							<tr style="background: #0099FF;color:#FFFFFF">
+								<th>订单id</th>
+								<th>用户手机号</th>
+								<th>订单批号</th>
+								<th>购买车型</th>
+								<th>购买台数</th>
+								<th>购买价格</th>
+								<th>用户订单状态</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<foreach name='dingdan_guige' id='key' item='value'>
+							<tr>
+								<td> <input type="checkbox" name="delete_id[]" value="{$vo['id']}">&nbsp;&nbsp;{$key+1}</td>
+								<td>{$value['user_phone']}</td>
+								<td>{$value['dingdan_id']}</td>
+								<td>{$value['chexing_type']}</td>
+								<td>{$value['user_sum']}</td>
+								<td>{$value['priceshijia']}</td>
+								<td>未审核</td>
+								<td>
+									<a href="#">审核</a>
+								</td>
+							</tr>
+							</foreach>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</form>
+		<input type="text" value="all" id="page_condition" style="display:none;" />
+		<input type="text" value="" id="order_condition"  style="display:none;" />
+		<div class="result page" id='footer_div' style="text-align:center"><font id='wc'>共 {$guige_count} 条记录  {$page_now}/{$dingdan_guige_pagenum} 页 </font>  <a class="pre_page" href="#">上一页</a>  <a class="next_page" href="#">下一页</a>  跳至<input style="width:25px;" class="jump_page" type="text"/> 页 &nbsp; <input type="button" class="btn btn-primary btn-sm jump_button" value="提交">  </div>
+		
+		
+		
+	</div>
+	<!-- 模板继承，js函数写到block里 -->
+	<script type="text/javascript">
+		$('.next_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == {$dingdan_guige_pagenum}) {
+				alert('当前页为最后一页');
+			}else{
+				location.href = "{:U('guige_list',array('page_now'=>$page_now+1))}";
+			};
+		});
+
+		$('.pre_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == 1) {
+				alert('当前页为第一页');
+			}else{
+				location.href = "{:U('guige_list',array('page_now'=>$page_now-1))}";
+			};
+		});
+
+		$('.jump_button').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ( parseInt($('.jump_page').val()) < 1 || parseInt($('.jump_page').val()) > {$dingdan_guige_pagenum} ) {
+				alert('超过页数范围');
+			}else{
+				location.href = "{:U('guige_list')}/page_now/"+$('.jump_page').val();
+			};
+		});
+
+		$('#guige_search').on('click', function() {
+			location.href = "{:U('guige_list')}/search_condition/"+$('#search_condition').val();
+		});
+
+		$(document).ready(function() {
+			if ('{$search_condition}' != '') {
+				$('#search_condition').val('{$search_condition}');
+			};
+		});
+
+		
+
+
+	</script>
+</block>
+
+
+		
+		
+
+
+		
+		

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>平台登陆</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+		<script src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+		<style type="text/css">
+			.a_active{
+				color: #099fde;
+			}
+			.a_unactive{
+				color: #808285;
+			}
+			.div_active{
+				background: #099fde;
+			}
+			.div_unactive{
+				background: #f9f9f9;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+			<div class="row">
+				<div class="col-xs-12" style="background: #099fde;text-align:center;color:#fff;font: 600 1.286em/2 Tahoma;height:50px;line-height:50px;">平台登陆</div>
+			</div>
+			<br>
+			<div class="col-sm-12" style="padding:0px;">
+				<form enctype="multipart/form-data" action="{:U('user_login_update')}" method="post" >
+					
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-3" style="height:34px;line-height:34px;">
+							<label>手机号</label>
+						</div>
+						<div class="col-xs-9">
+							<input type="tel" class="form-control"  name="user_phone" id="user_phone" placeholder="请输入手机号" value="">
+							<input type="hidden"  name="zhuce" id="zhuce" value="{$zhuce}">
+							<input type="hidden"  name="tejiache" id="tejiache" value="{$tejiache}">
+						</div>
+					</div>
+
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-3" style="height:34px;line-height:34px;">
+							<label>密码</label>
+						</div>
+						<div class="col-xs-9">
+							<input type="password" class="form-control"  name="user_password" id="user_password" placeholder="请输入密码" value="">
+						</div>
+					</div>
+					<div style="float:right;margin-right:18px"><a href="http://101.201.148.160/car/index.php/Home/Register/user_password">忘记密码？</a></div>
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10" style="margin-top:20px;margin-bottom:20px;">
+						<a href="http://101.201.148.160/car/index.php/Home/Register/user_register"><input type="button" class="btn btn-success" style="width:40%" value="注册" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="submit" style="width:40%" class="btn btn-success">登录</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		<br><br>
+			
+			
+			
+		</div>
+		
+		<script type="text/javascript">
+			$("form").submit( function () {
+				if ($('#user_phone').val() == '') {
+					alert('请输入手机号');
+					return false;
+				};
+				if (!tel_test($('#user_phone').val())) {
+					alert('请输入正确的手机号！');
+					return false;
+				};
+				if ($('#user_password').val() == '') {
+					alert('请输入密码');
+					return false;
+				};
+			} );
+
+			//电话
+			function tel_test (str) {
+				// alert(str);
+				// alert(str.length);
+				if (str.length > 6) {
+					var s = /^[0-9]*$/;
+					// alert(s.test(str));
+					return s.test(str);
+				}else{
+					return false;
+				};
+			}
+
+			$(document).ready(function() {
+				if ($('input[name="user_type"]:checked').val() == '0') {
+					$('#company_div').show();
+					$('#user_div').hide();
+				};
+				if ($('input[name="user_type"]:checked').val() == '1') {
+					$('#company_div').hide();
+					$('#user_div').show();
+				};
+			});
+
+			$('input[name="user_type"]').on('change', function(event) {
+				if ($('input[name="user_type"]:checked').val() == '0') {
+					$('#company_div').show();
+					$('#user_div').hide();
+				};
+				if ($('input[name="user_type"]:checked').val() == '1') {
+					$('#company_div').hide();
+					$('#user_div').show();
+				};
+			});
+
+			
+
+		
+		</script>
+		
+	</body>
+</html>

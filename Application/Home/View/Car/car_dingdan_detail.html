@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>订单详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+		<script src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+		<style type="text/css">
+			.a_active{
+				color: #099fde;
+			}
+			.a_unactive{
+				color: #808285;
+			}
+			.div_active{
+				background: #099fde;
+			}
+			.div_unactive{
+				background: #f9f9f9;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+			<div class="row">
+				<div class="col-xs-12" style="background: #099fde;text-align:center;color:#fff;font: 600 1.286em/2 Tahoma;height:50px;line-height:50px;">订单详情</div>
+			</div>
+			<br>
+			<div class="row" style="padding:0px 15px 0px 15px;">
+				<div class="col-sm-12" style="padding:0px;">
+								
+					<div class="  col-xs-12" style="padding:0px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>订单车型</label>
+						</div>
+						<div class="col-xs-8" style="height:34px;line-height:34px;">
+							{$dingdan['year_name_ch']} {$dingdan['kuanxing_name_ch']} {$dingdan['chexing_name_ch']}
+						</div>
+					</div>
+
+					<div class="  col-xs-12" style="padding:0px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>订购台数</label>
+						</div>
+						<div class="col-xs-8" style="height:34px;line-height:34px;">
+							{$dingdan['user_sum']}台
+						</div>
+					</div>
+
+					<div class="  col-xs-12" style="padding:0px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>付款状态</label>
+						</div>
+						<div class="col-xs-8" style="height:34px;line-height:34px;">
+							<switch name="dingdan['verify_state']">
+							    <case value="3|4">已付款</case>
+							    <default />未付款
+							</switch>
+						</div>
+					</div>
+
+
+					<div class="  col-xs-12" style="padding:0px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>订单状态</label>
+						</div>
+						<div class="col-xs-8" style="height:34px;line-height:34px;">
+							<switch name="dingdan['verify_state']">
+							    <case value="1">审核中</case>
+							    <case value="2">订单待付款</case>
+							    <case value="3">付款中</case>
+							    <case value="4">确认收款订单成功</case>
+							    <case value="5">订单失败</case>
+							</switch>
+						</div>
+					</div>
+
+					<div class="  col-xs-12" style="padding:0px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>订购价格</label>
+						</div>
+						<div class="col-xs-8" style="height:34px;line-height:34px;">
+							{$dingdan['user_price']}万&nbsp;&nbsp;&nbsp;&nbsp;{$dingdan['user_price_type']}
+						</div>
+					</div>
+
+
+
+					<div class="  col-xs-12" style="padding:0px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>订购时间</label>
+						</div>
+						<div class="col-xs-8" style="height:34px;line-height:34px;">
+							{$dingdan['dingdan_time']}
+						</div>
+					</div>
+
+
+					
+					<div class="  col-xs-12" style="padding:0px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>历史价格</label>
+						</div>
+					</div>
+					<foreach name="dingdan['zifu_history']" item="value" key="key" >
+						<div class="  col-xs-12" style="padding:0px;border:1px solid #CCCCCC;border-bottom:1px solid #CCCCCC;">
+							<div class="col-xs-6" style="height:34px;line-height:34px;text-align:center;">
+								{$value['price']}
+							</div>
+							<div class="col-xs-6" style="height:34px;line-height:34px;text-align:center;">
+								{$value['num']}万
+							</div>
+						</div>
+					</foreach>
+					
+					
+				</div>
+			</div>
+			
+			<div class="row" style="padding:20px;">
+				<switch name="dingdan['verify_state']">
+				    <case value="1|2">
+				    	<a role="button" href="{:U('car_dingdan_cancel',array('id' => $dingdan['id']))}" id="dingdan_more" class="btn btn-default btn-default btn-block" onclick="return confirm('确定取消订单?')">取消订单</a>
+				    </case>
+				    <default />
+					    <a role="button" href="{:U('car_dingdan_cancel',array('id' => $dingdan['id']))}" id="dingdan_more" class="btn btn-default btn-default btn-block" disabled="disabled">不可取消订单</a>
+				</switch>
+			</div>
+		<br><br>
+			
+			
+			
+		</div>
+		
+	</body>
+</html>

@@ -1,0 +1,112 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">权限分配</h1>
+        <ul class="breadcrumb">
+            <li>权限管理</li>
+            <li class="active">权限分配</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+	<div class="main-content">
+		
+		<form enctype="multipart/form-data" action="{:U('quanxian_feipei_update')}" method="post" >
+			<div class="btn-toolbar list-toolbar col-md-12">
+				<input type="hidden" value="{$zhiwu_id}" name="zhiwu_id">
+			    <button type="submit" class="btn btn-danger"><!-- <i class="glyphicon glyphicon-trash"></i> --> 分配权限</button>
+			</div>
+			<!-- <h1 class="page">Premium User List</h1> -->
+			<h3 class="page-tagline"></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<thead>
+							<tr style="background: #0099FF;color:#FFFFFF">
+								<th>序号</th>
+								<th>节点名</th>
+								<th>节点url</th>
+								<th>节点说明</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='jiedian' id='vo'>
+							<tr>
+								<td> 
+								<if condition="$vo['checked_state'] eq '0'">									
+									<input type="checkbox" name="fenpei_id[]" value="{$vo['id']}">
+								</if>
+								<if condition="$vo['checked_state'] eq '1'">									
+									<input type="checkbox" name="fenpei_id[]" checked="checked" value="{$vo['id']}">
+								</if>
+								&nbsp;&nbsp;{$vo['id']}</td>
+								<td>{$vo['jiedian_title']}</td>
+								<td>{$vo['jiedian_url']}</td>
+								<td>{$vo['jiedian_memo']}</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</form>
+		<input type="text" value="all" id="page_condition" style="display:none;" />
+		<input type="text" value="" id="order_condition"  style="display:none;" />
+		<div class="result page" id='footer_div' style="text-align:center"><font id='wc'>共 {$factory_count} 条记录  {$page_now}/{$factory_pagenum} 页 </font>  <a class="pre_page" href="#">上一页</a>  <a class="next_page" href="#">下一页</a>  跳至<input style="width:25px;" class="jump_page" type="text"/> 页 &nbsp; <input type="button" class="btn btn-primary btn-sm jump_button" value="提交">  </div>
+		
+		
+		
+	</div>
+	<!-- 模板继承，js函数写到block里 -->
+	<script type="text/javascript">
+		$('.next_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == {$factory_pagenum}) {
+				alert('当前页为最后一页');
+			}else{
+				location.href = "{:U('factory_list',array('page_now'=>$page_now+1))}";
+			};
+		});
+
+		$('.pre_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == 1) {
+				alert('当前页为第一页');
+			}else{
+				location.href = "{:U('factory_list',array('page_now'=>$page_now-1))}";
+			};
+		});
+
+		$('.jump_button').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ( parseInt($('.jump_page').val()) < 1 || parseInt($('.jump_page').val()) > {$factory_pagenum} ) {
+				alert('超过页数范围');
+			}else{
+				location.href = "{:U('factory_list')}/page_now/"+$('.jump_page').val();
+			};
+		});
+
+		$('#factory_search').on('click', function() {
+			location.href = "{:U('factory_list')}/search_condition/"+$('#search_condition').val();
+		});
+
+		$(document).ready(function() {
+			if ('{$search_condition}' != '') {
+				$('#search_condition').val('{$search_condition}');
+			};
+		});
+
+		
+
+
+	</script>
+</block>
+
+
+		
+		

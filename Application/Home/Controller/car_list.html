@@ -1,0 +1,430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>车型报价</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+		<script src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+
+		<style type="text/css">
+			.a_active{
+				color: #099fde;
+			}
+			.a_unactive{
+				color: #808285;
+			}
+			.div_active{
+				background: #099fde;
+			}
+			.div_unactive{
+				background: #f9f9f9;
+			}
+			a:hover{
+				color: #099fde;
+				text-decoration: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+			<div class="row">
+				<div class="col-sm-12" style="background: #099fde;text-align:center;color:#fff;font: 600 1.286em/2 Tahoma;height:50px;line-height:50px;">车型报价</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12" style="padding:0px 0px 0px 0px;">
+					<div role="tabpanel" class="col-xs-4 col-sm-4" style="padding:0px 0px 0px 0px;background: #f9f9f9;text-align:center;height:45px;line-height:45px;">
+						<a href="#home1" aria-controls="home" role="tab" data-toggle="tab" style="font-size: 16px;font: 400 15px/1.5 'Hiragino Sans GB','Microsoft YaHei',hei,Arial,'Lucida Grande',Verdana;" class="a_active" id="mg_a">美规</a>
+					</div>
+
+					<div role="tabpanel" class="col-xs-4 col-sm-4" style="padding:0px 0px 0px 0px;background: #f9f9f9;text-align:center;height:45px;line-height:45px;">
+						<a href="#home2" aria-controls="home" role="tab" data-toggle="tab" style="font-size: 16px;font: 400 15px/1.5 'Hiragino Sans GB','Microsoft YaHei',hei,Arial,'Lucida Grande',Verdana;" class="a_unactive" id="og_a">欧规</a>
+					</div>
+
+					<div role="tabpanel" class="col-xs-4 col-sm-4" style="padding:0px 0px 0px 0px;background: #f9f9f9;text-align:center;height:45px;line-height:45px;">
+						<a href="#home3" aria-controls="home" role="tab" data-toggle="tab" style="font-size: 16px;font: 400 15px/1.5 'Hiragino Sans GB','Microsoft YaHei',hei,Arial,'Lucida Grande',Verdana;" class="a_unactive" id="zd_a">中东</a>
+					</div>
+
+					<div class="col-xs-4 col-sm-4 div_active" id="mg_div" style="height:3px;"></div>
+
+					<div class="col-xs-4 col-sm-4 div_unactive" id="og_div" style="height:3px;"></div>
+
+					<div class="col-xs-4 col-sm-4 div_unactive" id="zd_div" style="height:3px;"></div>
+				</div>
+				
+			</div>
+			<div class="tab-content" class="col-sm-12">
+				<div role="tabpanel" class="tab-pane active" id="home1">
+					<foreach name="price_guige" item="value" key="key" >
+						<if condition="$value['kuanxing_name_ch'] eq '美版' ">
+						    <div class="col-xs-12 col-sm-12" style="border-bottom:1px solid #CCCCCC;margin-top:20px;">
+								<div class="col-xs-12 col-sm-12" style="padding:0px;margin-bottom:10px;">
+									<div class="col-xs-7 col-sm-7" style="border-right:1px solid #CCCCCC;">{$value['guige_name_ch']}</div>
+									<div class="col-xs-5 col-sm-5">批号：20150429</div>
+								</div>
+								<div class="col-xs-10 col-sm-10 col-xs-offset-1 col-sm-offset-1" style="padding:0px;margin-bottom:10px;border:1px solid #CCCCCC;text-align:center;">
+									预计到港时间：2015-04-27
+								</div>
+
+								<div class="col-xs-12 col-sm-12" style="padding:0px;">
+										<div class="col-xs-8 col-sm-8" style="padding:0px;">
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;color: #777777;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													<s>期货价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120万</s>
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;color: #777777;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													<s>离港价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130万</s>
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>									
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													在途价<img src="__PICURL__/xian.png" style="height:30px;width:auto;">&nbsp;150万
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm">订购</button>
+												</span>									
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													到港价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;180万
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>									
+											</div>
+										</div>
+										<div class="col-xs-4 col-sm-4" style="padding:0px 0px 0px 10px;">
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:70px;margin-bottom:10px;">
+												<img src="__PICURL__/canshu.jpg" class="img-thumbnail" data-toggle="modal" data-target="#myModal" style="height:100%;width:auto;">
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:30px 0px 0px 0px;margin-bottom:10px;">
+												<span>剩余数量200台</span>
+											</div>
+										</div>						
+								</div>						
+							</div>
+						</if>
+					</foreach>
+
+				
+
+					
+
+					<!-- 占位 -->
+					<div class="col-xs-12 col-sm-12" style="height:40px;"></div>
+
+
+					
+
+
+				</div>
+				
+				<div role="tabpanel" class="tab-pane" id="home2">
+					<foreach name="price_guige" item="value" key="key" >
+						<if condition="$value['kuanxing_name_ch'] eq '欧版' ">
+						    <div class="col-xs-12 col-sm-12" style="border-bottom:1px solid #CCCCCC;margin-top:20px;">
+								<div class="col-xs-12 col-sm-12" style="padding:0px;margin-bottom:10px;">
+									<div class="col-xs-7 col-sm-7" style="border-right:1px solid #CCCCCC;">{$value['guige_name_ch']}</div>
+									<div class="col-xs-5 col-sm-5">批号：20150429</div>
+								</div>
+								<div class="col-xs-10 col-sm-10 col-xs-offset-1 col-sm-offset-1" style="padding:0px;margin-bottom:10px;border:1px solid #CCCCCC;text-align:center;">
+									预计到港时间：2015-04-27
+								</div>
+
+								<div class="col-xs-12 col-sm-12" style="padding:0px;">
+										<div class="col-xs-8 col-sm-8" style="padding:0px;">
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;color: #777777;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													<s>期货价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120万</s>
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;color: #777777;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													<s>离港价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130万</s>
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>									
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													在途价<img src="__PICURL__/xian.png" style="height:30px;width:auto;">&nbsp;150万
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm">订购</button>
+												</span>									
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													到港价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;180万
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>									
+											</div>
+										</div>
+										<div class="col-xs-4 col-sm-4" style="padding:0px 0px 0px 10px;">
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:70px;margin-bottom:10px;">
+												<img src="__PICURL__/canshu.jpg" class="img-thumbnail" data-toggle="modal" data-target="#myModal" style="height:100%;width:auto;">
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:30px 0px 0px 0px;margin-bottom:10px;">
+												<span>剩余数量200台</span>
+											</div>
+										</div>						
+								</div>						
+							</div>
+						</if>
+					</foreach>
+					<!-- 占位 -->
+					<div class="col-xs-12 col-sm-12" style="height:40px;"></div>
+				</div>
+
+				<div role="tabpanel" class="tab-pane" id="home3">
+					<foreach name="price_guige" item="value" key="key" >
+						<if condition="$value['kuanxing_name_ch'] eq '中东' ">
+						    <div class="col-xs-12 col-sm-12" style="border-bottom:1px solid #CCCCCC;margin-top:20px;">
+								<div class="col-xs-12 col-sm-12" style="padding:0px;margin-bottom:10px;">
+									<div class="col-xs-7 col-sm-7" style="border-right:1px solid #CCCCCC;">{$value['guige_name_ch']}</div>
+									<div class="col-xs-5 col-sm-5">批号：20150429</div>
+								</div>
+								<div class="col-xs-10 col-sm-10 col-xs-offset-1 col-sm-offset-1" style="padding:0px;margin-bottom:10px;border:1px solid #CCCCCC;text-align:center;">
+									预计到港时间：2015-04-27
+								</div>
+
+								<div class="col-xs-12 col-sm-12" style="padding:0px;">
+										<div class="col-xs-8 col-sm-8" style="padding:0px;">
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;color: #777777;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													<s>期货价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;120万</s>
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;color: #777777;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													<s>离港价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;130万</s>
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>									
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													在途价<img src="__PICURL__/xian.png" style="height:30px;width:auto;">&nbsp;150万
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm">订购</button>
+												</span>									
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:30px;line-height:30px;margin-bottom:10px;">
+												<span class="col-xs-8 col-sm-8" style="padding:0px;">
+													到港价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;180万
+												</span>
+												<span class="col-xs-4 col-sm-4">
+													<button type="button" class="btn btn-default btn-sm" style="background-color:#EEEEEE;color:#AAAAAA;" disabled="disabled">订购</button>
+												</span>									
+											</div>
+										</div>
+										<div class="col-xs-4 col-sm-4" style="padding:0px 0px 0px 10px;">
+											<div class="col-xs-12 col-sm-12" style="padding:0px;height:70px;margin-bottom:10px;">
+												<img src="__PICURL__/canshu.jpg" class="img-thumbnail" data-toggle="modal" data-target="#myModal" style="height:100%;width:auto;">
+											</div>
+											<div class="col-xs-12 col-sm-12" style="padding:30px 0px 0px 0px;margin-bottom:10px;">
+												<span>剩余数量200台</span>
+											</div>
+										</div>						
+								</div>						
+							</div>
+						</if>
+					</foreach>
+					<!-- 占位 -->
+					<div class="col-xs-12 col-sm-12" style="height:40px;"></div>
+				</div>
+				
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12" style="text-align:center;height:40px;line-height:40px;bottom:0;padding:0px;position:fixed;">
+					<div class="col-xs-6" style="background: #EEEEEE;text-align:center;color:#000000;font: 200 1em/2 Tahoma;height:40px;line-height:40px;border:1px solid #fff;" id="div_search" data-toggle="modal" data-target="#myModal_search" ><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;搜索</div>
+					<div class="col-xs-6" style="background: #EEEEEE;text-align:center;color:#000000;font: 200 1em/2 Tahoma;height:40px;line-height:40px;border:1px solid #fff;"><span class="glyphicon glyphicon-sort" aria-hidden="true"></span>&nbsp;按时价排序</div>
+				</div>
+			</div>
+			
+			
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="margin-top:60px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">15款中东2700&nbsp;&nbsp;<small>参数配置</small></h4>
+					</div>
+					<div class="modal-body" style="height:240px;">
+						
+						<div class="col-xs-12 col-sm-12" style="padding:0px 0px 15px 0px;">
+							<span class="col-xs-12 col-sm-12" style="padding:0px;"><strong>参数：</strong></span>
+							<span class="col-xs-5 col-sm-5">长×宽×高：</span>
+							<span class="col-xs-7 col-sm-7">4700×940×1400</span>
+							<span class="col-xs-5 col-sm-5">功&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率：</span>
+							<span class="col-xs-7 col-sm-7">150匹</span>
+							<span class="col-xs-5 col-sm-5">轴&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;距：</span>
+							<span class="col-xs-7 col-sm-7">4700</span>
+							<span class="col-xs-5 col-sm-5">油&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;耗：</span>
+							<span class="col-xs-7 col-sm-7">10个</span>
+							
+						</div>
+
+						<div class="col-xs-12 col-sm-12" style="padding:15px 0px 0px 0px;border-top:1px solid #CCCCCC;">
+							<span class="col-xs-12 col-sm-12" style="padding:0px;"><strong>配置：</strong></span>
+							<span class="col-xs-12 col-sm-12">真皮座椅</span>
+							<span class="col-xs-12 col-sm-12">高级天窗</span>
+							<span class="col-xs-12 col-sm-12">四区恒温空调</span>
+							
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关&nbsp;闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal_search" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="margin-top:60px;">
+				<div class="modal-content">
+				<form  class="form-horizontal" action="#" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">车型报价搜索</h4>
+					</div>
+					<div class="modal-body" style="height:200px;">
+						
+						<div class="col-xs-12 col-sm-12" style="padding:0px 0px 15px 0px;">
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;padding:0px;margin-bottom:15px;">热销车型：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;padding:0px;margin-bottom:15px;">
+								<span class="col-xs-4 col-sm-4" style='padding:0px 2px 0px 2px;height:30px;background-color:#f0ad4e;border-right:5px solid #FFFFFF;color:#FFFFFF;text-align:center;'>
+									车型1
+								</span>
+								<span class="col-xs-4 col-sm-4" style='padding:0px 2px 0px 2px;height:30px;background-color:#f0ad4e;border-right:5px solid #FFFFFF;color:#FFFFFF;text-align:center;'>
+									车型2
+								</span>
+								<span class="col-xs-4 col-sm-4" style='padding:0px 2px 0px 2px;height:30px;background-color:#f0ad4e;border-right:5px solid #FFFFFF;color:#FFFFFF;text-align:center;'>
+									车型3
+								</span>
+							</span>
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;margin-bottom:15px;">厂&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;margin-bottom:15px;">
+								<select class="form-control">
+								  <option>1</option>
+								  <option>2</option>
+								  <option>3</option>
+								  <option>4</option>
+								  <option>5</option>
+								</select>
+							</span>
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;margin-bottom:15px;">车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;margin-bottom:15px;">
+								<select class="form-control">
+								  <option>1</option>
+								  <option>2</option>
+								  <option>3</option>
+								  <option>4</option>
+								  <option>5</option>
+								</select>
+							</span>
+							<span class="col-xs-5 col-sm-5" style="height:30px;line-height:30px;margin-bottom:15px;">版&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本：</span>
+							<span class="col-xs-7 col-sm-7" style="height:30px;line-height:30px;margin-bottom:15px;">
+								<select class="form-control">
+								  <option>1</option>
+								  <option>2</option>
+								  <option>3</option>
+								  <option>4</option>
+								  <option>5</option>
+								</select>
+							</span>
+							
+						</div>
+
+						
+						
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-info" type="submit">提&nbsp;交</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">关&nbsp;闭</button>
+					</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+		// iphone手机要绑定click事件modal才显示
+		$('#div_search').on('click', function() {
+			// alert('123');
+		});
+
+		$('#mg_a').click(function() {
+			$(this).removeClass("a_unactive");
+			$(this).addClass("a_active");
+			$('#og_a').removeClass("a_active");
+			$('#og_a').addClass("a_unactive");
+			$('#zd_a').removeClass("a_active");
+			$('#zd_a').addClass("a_unactive");
+			$('#mg_div').removeClass("div_unactive");
+			$('#mg_div').addClass("div_active");
+			$('#og_div').removeClass("div_active");
+			$('#og_div').addClass("div_unactive");
+			$('#zd_div').removeClass("div_active");
+			$('#zd_div').addClass("div_unactive");
+		});
+		$('#og_a').click(function() {
+			$(this).removeClass("a_unactive");
+			$(this).addClass("a_active");
+			$('#mg_a').removeClass("a_active");
+			$('#mg_a').addClass("a_unactive");
+			$('#zd_a').removeClass("a_active");
+			$('#zd_a').addClass("a_unactive");
+			$('#og_div').removeClass("div_unactive");
+			$('#og_div').addClass("div_active");
+			$('#mg_div').removeClass("div_active");
+			$('#mg_div').addClass("div_unactive");
+			$('#zd_div').removeClass("div_active");
+			$('#zd_div').addClass("div_unactive");
+		});
+		$('#zd_a').click(function() {
+			$(this).removeClass("a_unactive");
+			$(this).addClass("a_active");
+			$('#mg_a').removeClass("a_active");
+			$('#mg_a').addClass("a_unactive");
+			$('#og_a').removeClass("a_active");
+			$('#og_a').addClass("a_unactive");
+			$('#zd_div').removeClass("div_unactive");
+			$('#zd_div').addClass("div_active");
+			$('#mg_div').removeClass("div_active");
+			$('#mg_div').addClass("div_unactive");
+			$('#og_div').removeClass("div_active");
+			$('#og_div').addClass("div_unactive");
+		});
+		</script>
+		
+	</body>
+</html>

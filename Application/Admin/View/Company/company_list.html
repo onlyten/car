@@ -1,0 +1,121 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">企业基础信息管理</h1>
+        <ul class="breadcrumb">
+            <li>企业管理</li>
+            <li class="active">企业基础信息管理</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+	<div class="main-content">
+		<div class="btn-toolbar list-toolbar col-md-6" style="border:1px solid #cccccc;margin:-20px 10px 10px 10px;height:56px;line-height:56px;">
+			<label class="control-label" style="float:left;">企业名称&nbsp;&nbsp;</label>
+		    <input type="text" class="form-control" style="width:50%;float:left;margin-top:10px;" id="search_condition" />
+		    <button class="btn btn-danger" id="company_search" style="width:20%;float:left;margin-top:10px;"><i class="glyphicon glyphicon-search"></i> 搜索</button>
+		</div>
+		<form enctype="multipart/form-data" action="{:U('company_delete_update')}" method="post" >
+			<div class="btn-toolbar list-toolbar col-md-12">　　　　　　　　　　　　　　　　　　　
+			    <div class='col-md-2'><a href="{:U('company_add')}" class="btn btn-primary"><i class="fa fa-plus"></i> 添加企业</a></div>　　　　　　　　
+			    <div class='col-md-2'><button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> 删除企业</button></div>
+			</div>
+			<!-- <h1 class="page">Premium User List</h1> -->
+			<h3 class="page-tagline"></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<thead>
+							<tr style="background: #0099FF;color:#FFFFFF">
+								<th>序号</th>
+								<th>企业中文名</th>
+								<th>企业简介</th>
+								<th>联系人</th>
+								<th>电话</th>
+								<th>地址</th>
+								<th>是否显示</th>
+								<th>企业标识</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='company' id='vo'>
+							<tr>
+								<td> <input type="checkbox" name="delete_id[]" value="{$vo['id']}">&nbsp;&nbsp;{$vo['id']}</td>
+								<td>{$vo['company_name_ch']}</td>
+								<td>{$vo['company_introduct']}</td>
+								<td>{$vo['company_person']}</td>
+								<td>{$vo['company_phone']}</td>
+								<td>{$vo['company_address']}</td>
+								<td>
+									<if condition="$vo['company_display'] eq 1 ">是
+									    <else /> 否
+									</if>
+								</td>
+								<td><img class="media-object thumb-sm" src="__PICURL__/{$vo['company_img']}"></td>
+								<td>
+									<a href="{:U('company_modify',array('company_id'=>$vo['id']))}">编辑</a>&nbsp;&nbsp;
+								</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</form>
+		<input type="text" value="all" id="page_condition" style="display:none;" />
+		<input type="text" value="" id="order_condition"  style="display:none;" />
+		<div class="result page" id='footer_div' style="text-align:center"><font id='wc'>共 {$company_count} 条记录  {$page_now}/{$company_pagenum} 页 </font>  <a class="pre_page" href="#">上一页</a>  <a class="next_page" href="#">下一页</a>  跳至<input style="width:25px;" class="jump_page" type="text"/> 页 &nbsp; <input type="button" class="btn btn-primary btn-sm jump_button" value="提交">  </div>
+		
+		
+		
+	</div>
+	<!-- 模板继承，js函数写到block里 -->
+	<script type="text/javascript">
+		$('.next_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == {$company_pagenum}) {
+				alert('当前页为最后一页');
+			}else{
+				location.href = "{:U('company_list',array('page_now'=>$page_now+1))}";
+			};
+		});
+
+		$('.pre_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == 1) {
+				alert('当前页为第一页');
+			}else{
+				location.href = "{:U('company_list',array('page_now'=>$page_now-1))}";
+			};
+		});
+
+		$('.jump_button').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ( parseInt($('.jump_page').val()) < 1 || parseInt($('.jump_page').val()) > {$company_pagenum} ) {
+				alert('超过页数范围');
+			}else{
+				location.href = "{:U('company_list')}/page_now/"+$('.jump_page').val();
+			};
+		});
+
+		$('#company_search').on('click', function() {
+			location.href = "{:U('company_list')}/search_condition/"+$('#search_condition').val();
+		});
+
+		$(document).ready(function() {
+			if ('{$search_condition}' != '') {
+				$('#search_condition').val('{$search_condition}');
+			};
+		});
+	</script>
+</block>
+
+
+		
+		

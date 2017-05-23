@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>订单页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+		<script src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+		<style type="text/css">
+			.a_active{
+				color: #099fde;
+			}
+			.a_unactive{
+				color: #808285;
+			}
+			.div_active{
+				background: #099fde;
+			}
+			.div_unactive{
+				background: #f9f9f9;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+			<div class="row">
+				<div class="col-xs-12" style="background: #099fde;text-align:center;color:#fff;font: 600 1.286em/2 Tahoma;height:50px;line-height:50px;">订单页</div>
+			</div>
+			<br>
+			<div class="col-sm-12" style="padding:0px;">
+				<form enctype="multipart/form-data" action="{:U('car_buy_update',array('user_phone'=>$user_phone,'dingdan_id'=>$dingdan_id,'price_id'=>$price_guige[0]['price_id']))}" method="post" >
+					
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>订单号：</label>
+						</div>
+						<div class="col-xs-8">
+							<p class="form-control-static">{$price_guige[0]['pihao']}</p>
+						</div>
+					</div>
+
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>订购车型：</label>
+						</div>
+						<div class="col-xs-8">
+							<p class="form-control-static">{$price_guige[0]['guige_name_ch']}</p>
+						</div>
+					</div>
+
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>订购价格：</label>
+						</div>
+						<div class="col-xs-8">
+							<p class="form-control-static">{$zifu_now['num']}万（{$zifu_now['price']}）</p>
+							<input type="hidden" name="user_price" value="{$zifu_now['num']}" >
+							<input type="hidden" name="user_price_type" value="{$zifu_now['price']}" >
+						</div>
+					</div>
+
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>购买数量：</label>
+						</div>
+						<div class="col-xs-3" style="padding-right:0px;">
+							<input type="tel" class="form-control"  name="user_sum" id="user_sum" value="">
+						</div>
+						<div class="col-xs-5" style="height:34px;line-height:34px;">
+							<label>/  {$price_guige[0]['surplus']}</label>
+						</div>
+					</div>
+
+					<!-- <div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>联系电话：</label>
+						</div>
+						<div class="col-xs-8">
+							<input type="tel" class="form-control"  name="user_phone" id="user_phone" placeholder="请输入数字" value="">
+						</div>
+					</div> -->
+					
+					
+					
+					
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10" style="margin-top:20px;margin-bottom:20px;">
+							<button type="submit" class="btn btn-success">提 交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="reset"  class="btn btn-warning">重 置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		<br><br>
+			
+			
+			
+		</div>
+		
+		<script type="text/javascript">
+			$("form").submit( function () {
+				if ($('#user_sum').val() == '') {
+					alert('请输入购买数量');
+					return false;
+				};
+				if (parseInt($('#user_sum').val())  > {$price_guige[0]['surplus']}) {
+					alert('超出总数量');
+					return false;
+				};
+				if ($('#user_phone').val() == '') {
+					alert('请输入手机号');
+					return false;
+				};
+				if (!tel_test($('#user_phone').val())) {
+					alert('请输入正确的手机号！');
+					return false;
+				};
+				
+			} );
+
+			//电话
+			function tel_test (str) {
+				// alert(str);
+				// alert(str.length);
+				if (str.length > 6) {
+					var s = /^[0-9]*$/;
+					// alert(s.test(str));
+					return s.test(str);
+				}else{
+					return false;
+				};
+			}
+
+			
+
+		
+		</script>
+		
+	</body>
+</html>

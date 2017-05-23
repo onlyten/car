@@ -1,0 +1,81 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">添加报价类型</h1>
+        <ul class="breadcrumb">
+            <li>报价管理</li>
+            <li class="active">添加报价类型</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+<link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<div class="main-content">
+		<form enctype="multipart/form-data" onsubmit="return checkForm()" action="{:U('pritype_add_update')}" method="post" >
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">报价类型名称</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="pritype_name" id="pritype_name" placeholder="" value="" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">排序</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="pritype_weight" id="pritype_weight" placeholder="" value="">
+				</div>
+			</div>
+			<div class="form-group">
+					<div class="btn-toolbar list-toolbar col-md-offset-2 col-md-10" style="margin-top:20px;margin-bottom:20px;">
+				    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保 存</button>
+					<a href="{:U('pritype_list')}" class="btn btn-danger"><i class="glyphicon glyphicon-list"></i> 返回列表</a>
+			</div>
+		</form>
+	</div>
+	 <script>
+        function check() {
+            document.getElementById('ok').disabled = 'disabled';
+        }
+    </script>
+	<script type="text/javascript">
+		function checkForm(){
+			       var x=document.getElementById("pritype_name").value;
+				   if ((x == null) || (x.length == 0))
+				   {
+					   alert("报价类型名称不能为空！");
+					   return false;
+				   }
+				   var m=document.getElementById("pritype_weight").value;
+				   if ((m == null) || (m.length == 0))
+				   {
+					   alert("排序不能为空！");
+					   return false;
+				   }
+          }
+			$('#pritype_name').on('blur', function() {
+				$.ajax({
+					type: "POST",
+			        url: "{:U('pritype_check')}",
+			        contentType:"application/x-www-form-urlencoded;charset=utf-8", 
+			        dataType: "json",
+			        data: {pritype_name:$('#pritype_name').val()},
+			        success: function(msg){
+        				alert(msg.info);        	  
+			        }
+			    });
+			});
+			$('#pritype_weight').on('blur', function() {
+				$.ajax({
+					type: "POST",
+			        url: "{:U('pritype_check')}",
+			        contentType:"application/x-www-form-urlencoded;charset=utf-8", 
+			        dataType: "json",
+			        data: {pritype_weight:$('#pritype_weight').val()},
+			        success: function(msg){
+        				alert(msg.info);        	  
+			        }
+			    });
+			});
+		</script>
+</block>

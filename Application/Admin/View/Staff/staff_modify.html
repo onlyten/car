@@ -1,0 +1,108 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">修改员工</h1>
+        <ul class="breadcrumb">
+            <li>内部管理</li>
+            <li class="active">修改员工</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+<script src="__JS__/chosen.jquery.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/chosen.css">
+	<div class="main-content" style="height:805px;">
+		<form enctype="multipart/form-data" action="{:U('staff_modify_update',array('staff_id'=>$staff[0]['id']))}" method="post" >
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">员工id</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="staff_number" id="staff_number" placeholder="" value="{$staff[0]['staff_number']}">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">部门</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+				<select class="chzn-select form-control" name="bumen_id">
+					<volist name='bumen' id='vo'>
+					 <option value='{$vo['id']}'>{$vo['bumen_name_ch']}</option>
+					</volist>
+				</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">职务</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+				<select class="chzn-select form-control" name="zhiwu_id">
+					<volist name='zhiwu' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['zhiwu_name_ch']}</option>
+					</volist>
+				</select>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">登录名</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="staff_name_ch" id="staff_name_ch" placeholder="" value="{$staff[0]['staff_name_ch']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">密码</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="pwds" id="pwds" placeholder="" value="{$staff[0]['pwds']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">真实姓名</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="staff_name" id="staff_name" placeholder="" value="{$staff[0]['staff_name']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">性别</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="staff_sex" id="staff_sex" value="1"> 男
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="staff_sex" id="staff_sex" value="0"> 女
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">账户状态</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="account_use" id="account_use" value="1"> 启用
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="account_use" id="account_use" value="0"> 禁用
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">Email</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="email" id="email" placeholder="" value="{$staff[0]['email']}">
+				</div>
+			</div>
+			<div class="form-group">
+					<div class="btn-toolbar list-toolbar col-md-offset-2 col-md-10" style="margin-top:20px;margin-bottom:20px;">
+				    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保 存</button>
+					<a href="{:U('staff_list')}" class="btn btn-danger"><i class="glyphicon glyphicon-list"></i> 返回列表</a>
+			</div>
+		</form>
+	</div>
+	<script>
+	$(document).ready(function() {
+				$("input[name='staff_sex'][value='{$staff[0]['staff_sex']}']").attr("checked",true);
+				$("input[name='account_use'][value='{$staff[0]['account_use']}']").attr("checked",true);
+				$("select[name='bumen_id']").val("{$staff[0]['bumen_id']}");
+				$("select[name='zhiwu_id']").val("{$staff[0]['zhiwu_id']}");
+				// 先赋值，再初始化
+			$(".chzn-select").chosen();
+			});
+	</script>
+</block>

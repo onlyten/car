@@ -1,0 +1,153 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">员工管理</h1>
+        <ul class="breadcrumb">
+            <li>内部管理</li>
+            <li class="active">员工管理</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+<script src="__JS__/chosen.jquery.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/chosen.css">
+	<div class="main-content">
+		<div class="btn-toolbar list-toolbar col-md-6" style="border:1px solid #cccccc;margin:-20px 10px 10px 10px;height: 148px;">
+			<label class="control-label" style="float:left;">部门&nbsp;&nbsp;</label>
+			<select class="chzn-select form-control"  id="search_condition">
+			<option value="空">请选择</option>
+					<volist name='bumen' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['bumen_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">职务&nbsp;&nbsp;</label>
+			<select class="chzn-select form-control" id="search_condition1">
+			<option value="空">请选择</option>
+					<volist name='zhiwu' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['zhiwu_name_ch']}</option>
+					</volist>
+			</select>
+		    <button class="btn btn-danger" id="staff_search" style="width:100px;float:left;margin-top:10px;"><i class="glyphicon glyphicon-search"></i> 搜索</button>
+		</div><br><br>
+		<form enctype="multipart/form-data" action="{:U('staff_delete_update')}" method="post" >
+			<div class="btn-toolbar list-toolbar col-md-12">　　　　　　　　　　　　　　　　　　　
+			    <div class='col-md-2'><a href="{:U('staff_add')}" class="btn btn-primary"style="margin-left: 7px;"><i class="fa fa-plus"></i> 添加员工</a></div>　　　　　　　　　　
+			    <div class='col-md-2'><button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> 删除员工</button></div>
+			</div>
+			<!-- <h1 class="page">Premium User List</h1> -->
+			<h3 class="page-tagline"></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<thead>
+							<tr style="background: #0099FF;color:#FFFFFF">
+								<th>序号</th>
+								<th>员工id</th>
+								<th>部门</th>
+								<th>职务</th>
+								<th>姓名</th>
+								<th>登录名</th>
+								<th>性别</th>
+								<th>建立时间</th>
+								<th>Email</th>
+								<th>账户是否可用</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='staff' id='vo'>
+							<tr>
+								<td> <input type="checkbox" name="delete_id[]" value="{$vo['id']}">&nbsp;&nbsp;{$vo['id']}</td>
+								<td>{$vo['staff_number']}</td>
+								<td>{$vo['bumen_name_ch']}</td>
+								<td>{$vo['zhiwu_name_ch']}</td>
+								<td>{$vo['staff_name']}</td>
+								<td>{$vo['staff_name_ch']}</td>
+								<td>
+								<if condition="$vo['staff_sex'] eq 1 ">男
+									    <else />女
+									</if>
+								</td>
+
+								<td>{$vo['creatime']}</td>
+								<td>{$vo['email']}</td>
+								<td>
+									<if condition="$vo['account_use'] eq 1 ">True
+									    <else /> False
+									</if>
+								</td>
+								<td>
+									<a href="{:U('staff_modify',array('staff_id'=>$vo['id']))}">编辑</a>&nbsp;&nbsp;
+								</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</form>
+		<input type="text" value="all" id="page_condition" style="display:none;" />
+		<input type="text" value="" id="order_condition"  style="display:none;" />
+		<div class="result page" id='footer_div' style="text-align:center"><font id='wc'>共 {$staff_count} 条记录  {$page_now}/{$staff_pagenum} 页 </font>  <a class="pre_page" href="#">上一页</a>  <a class="next_page" href="#">下一页</a>  跳至<input style="width:25px;" class="jump_page" type="text"/> 页 &nbsp; <input type="button" class="btn btn-primary btn-sm jump_button" value="提交">  </div>
+		
+		
+		
+	</div>
+	<!-- 模板继承，js函数写到block里 -->
+	<script type="text/javascript">
+		$('.next_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == {$staff_pagenum}) {
+				alert('当前页为最后一页');
+			}else{
+				location.href = "{:U('staff_list',array('page_now'=>$page_now+1))}";
+			};
+		});
+
+		$('.pre_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == 1) {
+				alert('当前页为第一页');
+			}else{
+				location.href = "{:U('staff_list',array('page_now'=>$page_now-1))}";
+			};
+		});
+
+		$('.jump_button').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ( parseInt($('.jump_page').val()) < 1 || parseInt($('.jump_page').val()) > {$staff_pagenum} ) {
+				alert('超过页数范围');
+			}else{
+				location.href = "{:U('staff_list')}/page_now/"+$('.jump_page').val();
+			};
+		});
+
+		$('#staff_search').on('click', function() {
+			location.href = "{:U('staff_list')}/search_condition/"+$('#search_condition').val()+'/search_condition1/'+$('#search_condition1').val();
+		});
+		
+		$(document).ready(function() {
+			if ('{$search_condition}' != '') {
+				$('#search_condition').val('{$search_condition}');
+			};
+			if ('{$search_condition1}' != '') {
+				$('#search_condition1').val('{$search_condition1}');
+			};
+			// 先赋值，再初始化
+			$(".chzn-select").chosen();
+		});
+	</script>
+</block>
+
+
+		
+		
+
+
+		
+		

@@ -1,0 +1,825 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="style-header">
+ <link href="__STYLE__/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="__STYLE__/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+        <link rel="stylesheet" href="__CSS__/font-awesome.css">
+		 <link rel="stylesheet" type="text/css" href="__CSS__/theme.css">
+        <link rel="stylesheet" type="text/css" href="__CSS__/premium.css">
+		<style>
+			form {
+				margin: 0;
+			}
+			textarea {
+				display: block;
+			}
+		</style>
+		<link rel="stylesheet" href="http://182.92.11.136/carcar/car/Public/kindeditor/themes/default/default.css" />
+		<script charset="utf-8" src="http://182.92.11.136/carcar/car/Public/kindeditor/kindeditor-min.js"></script>
+		<script charset="utf-8" src="http://182.92.11.136/carcar/car/Public/kindeditor/lang/zh_CN.js"></script>
+		<script>
+			KindEditor.ready(function(K) {
+				K.create('textarea[name="xiangqing"]', {
+					autoHeightMode : true,
+					afterCreate : function() {
+						this.loadPlugin('autoheight');
+					}
+				});
+			});
+		</script>
+
+</block>
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">修改报价</h1>
+        <ul class="breadcrumb">
+            <li>报价管理</li>
+            <li class="active">修改报价</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+<script src="__JS__/chosen.jquery.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/chosen.css">
+	<div class="main-content" style="height: 2440px;">
+		<form enctype="multipart/form-data" action="{:U('price_modify_update',array('price_id'=>$price[0]['id']))}" method="post" >
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">厂商</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+				<select class="chzn-select form-control" name="factory_id">
+					<volist name='factory' id='vo'>
+					 <option value='{$vo['id']}'>{$vo['factory_name_ch']}</option>
+					</volist>
+				</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">车型</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+				<select class="chzn-select form-control" name="chexing_id">
+					<volist name='chexing' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['chexing_name_ch']}</option>
+					</volist>
+				</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">年款</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<select class="chzn-select form-control" name="year_id">
+					<volist name='year' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['year_name_ch']}</option>
+					</volist>
+				</select>
+				</div>
+			</div>	
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">规格名称</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+				<select class="chzn-select form-control" name="guige_id">
+					<volist name='guige' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['guige_name_ch']}</option>
+					</volist>
+				</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">信息来源</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<select class="chzn-select form-control" name="company_id">
+					<volist name='company' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['company_name_ch']}</option>
+					</volist>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">车辆台数</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="sum" id="sum" placeholder="" value="{$price[0]['sum']}">
+					<input type="submit" name="sum0" value="{$price[0]['sum']}"  style="display:none;"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">货物批号</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="pihao" id="pihao" placeholder="" value="{$price[0]['pihao']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">是否特价车</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="tejia" id="tejia" value="1"> 是
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="tejia" id="tejia" value="0"> 否
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">是否新车上架</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="newcar" id="newcar" value="1"> 是
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="newcar" id="newcar" value="0"> 否
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+                <label for="dtp_input2" class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">预计到港时间</label><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                <div class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" type="text" value="{$price[0]['dtime']}" readonly name="dtime">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+				<input type="hidden" id="dtime" value="" ><br/>
+            </div>
+			<!--<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">预计到岗时间</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="dtime" id="dtime" placeholder="" value="{$price[0]['dtime']}">
+				</div>
+			</div>-->
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">主要参数</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<textarea type="text" class="form-control" name="canshu" id="canshu" placeholder="" value="{$price[0]['canshu']}">{$price[0]['canshu']}</textarea>
+				</div>
+			</div>　<span style="color:red">*标准格式:　长*宽*高:4000X2000X1000 换行请回车</span>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">主要配置</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<textarea type="text" class="form-control" name="peizhi" id="peizhi" placeholder="" value="{$price[0]['peizhi']}">{$price[0]['peizhi']}</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">颜色</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="color" id="color" placeholder="" value="{$price[0]['color']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">网址</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="wangzhi" id="wangzhi" placeholder="" value="{$price[0]['wangzhi']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">是否显示</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="price_display" id="price_display" value="1"> 显示
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="price_display" id="price_display" value="0"> 不显示
+					</label>
+				</div>
+			</div>
+
+			<div class="row">
+					<div class="col-md-7" style="width:600px;">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>报价类型名称</th>
+								<th>报价</th>
+								<th>单位</th>
+								<th>货币种类</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='pricenum' id='vo'>
+							<tr>
+								<td><input type="hidden" class="form-control" name="typename[]" id="typename" placeholder="" value="{$vo['id']}">{$vo['name']}</td>
+								<td><input type="text" class="form-control" name="baojia[]" id="baojia" placeholder="" value="{$vo['num']}"></td>
+								<td>万</td>
+								<td><select class="form-control" name='huobi[]' id='huobi'>
+								<if condition="$vo['type'] eq 人民币"><option value="人民币" selected="selected">人民币</option>
+								<option value="美元">美元</option>
+								<option value="欧元">欧元</option></if>
+
+								<if condition="$vo['type'] eq 美元"><option value="人民币">人民币</option>
+								<option value="美元" selected="selected">美元</option>
+								<option value="欧元">欧元</option></if>
+
+								<if condition="$vo['type'] eq 欧元"><option value="人民币">人民币</option>
+								<option value="美元">美元</option>
+								<option value="欧元" selected="selected">欧元</option></if>
+									  </select>
+								</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					</div>
+					</div>
+					<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">当前有效报价：</label>
+			<div class="col-md-6" style="padding: 0px 0px 10px 0px;">　
+				<select class="form-control" name='nowprice'>
+					<volist name='pritype' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['pritype_name']}</option>
+					</volist>
+				</select>
+			</div>
+			</div>
+
+
+
+<!--
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">　报价名称</label>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding: 0px 0px 5px; width: 152px; margin-top: 6px;">　期货价：</label>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;"></label>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">　离岗价：</label>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;"></label>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">　在途价：</label>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;"></label>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">　到港价：</label>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="margin-top:-190px;margin-left:180px;margin-bottom:-30px;">　报价</label>
+				<div class="col-md-2" style="margin-top:-160px;margin-left:160px;margin-bottom:-30px;">
+					<input type="text" class="form-control" name="pricedao" id="pricedao" placeholder="" value="{$price[0]['pricedao']}">
+				</div>
+				<div class="col-md-2" style="margin-top:-120px;margin-left:160px;margin-bottom:-30px;">
+					<input type="text" class="form-control" name="priceli" id="priceli" placeholder="" value="{$price[0]['priceli']}">
+				</div>
+				<div class="col-md-2" style="margin-top:-80px;margin-left:160px;margin-bottom:-30px;">
+					<input type="text" class="form-control" name="pricezai" id="pricezai" placeholder="" value="{$price[0]['pricezai']}">
+				</div>
+				<div class="col-md-2" style="margin-top:-40px;margin-left:160px;margin-bottom:-30px;">
+					<input type="text" class="form-control" name="priceqi" id="priceqi" placeholder="" value="{$price[0]['priceqi']}">
+				</div>
+			</div>
+
+
+			<div class="col-md-2" style="padding: 0px 0px 10px; width: 300px;"></br>　当前有效报价：
+				<select class="form-control" name='nowprice' id='nowprice' style="border-right-width: 1px; width: 165px; padding-left: 12px; padding-right: 16px; margin-left: 175px; margin-top: -30px;">
+					  <option value="期货价">期货价</option>
+					  <option value="离港价">离港价</option>
+					  <option value="在途价">在途价</option>
+					  <option value="到港价">到港价</option>
+				</select>
+			</div>
+			-->
+			<div class="control-group">
+				<label for="insertimage"class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">上传车图: <span style="color:red">*车图大小:350*200</span></label>
+				<div class="col-md-2" style="padding:0px 0px 10px 0px;">
+					<div class="controls">
+						<a id="preview">
+							<if condition="$price[0]['car_img'] neq null">
+						    	<img id='imghead1' src="http://101.201.148.160/car/Public/upload/img/{$price[0]['car_img']}" style="max-width:143px;height:auto;">
+						    </if>
+						    <if condition="$price[0]['car_img'] eq null">
+						    	<img id='imghead1' src="http://101.201.148.160/car/Public/upload/img/test.jpg" style="max-width:143px;height:auto;">
+						    </if>
+						</a>
+						<input id="picurl" name="picurl" class="input-medium" type="file" onChange="previewImage(this)"  style="margin-bottom:10px;width: 65px;">
+					</div>
+				</div>
+				<div class="col-md-2" style="padding:0px 0px 10px 0px;">
+					<div class="controls">
+						<a id="preview1">
+						    <if condition="$price[0]['cara_img'] neq null">
+						    	<img id='imghead2' src="http://101.201.148.160/car/Public/upload/img/{$price[0]['cara_img']}" style="max-width:143px;height:auto;">
+						    </if>
+						    <if condition="$price[0]['cara_img'] eq null">
+						    	<img id='imghead2' src="http://101.201.148.160/car/Public/upload/img/test.jpg" style="max-width:143px;height:auto;">
+						    </if>
+						</a>
+						<input id="pic" name="pic" class="input-medium" type="file" onChange="previewImage1(this)"  style="margin-bottom:10px;width: 65px;">
+					</div>
+				</div>
+				<div class="col-md-2" style="padding:0px 0px 10px 0px;">
+					<div class="controls">
+						<a id="preview2">
+						    <if condition="$price[0]['carb_img'] neq null">
+						    	<img id='imghead3' src="http://101.201.148.160/car/Public/upload/img/{$price[0]['carb_img']}" style="max-width:143px;height:auto;">
+						    </if>
+						    <if condition="$price[0]['carb_img'] eq null">
+						    	<img id='imghead3' src="http://101.201.148.160/car/Public/upload/img/test.jpg" style="max-width:143px;height:auto;">
+						    </if>
+						</a>
+						<input id="picc" name="picc" class="input-medium" type="file" onChange="previewImage2(this)"  style="margin-bottom:10px;width: 65px;">
+					</div>
+				</div>
+				<div class="col-md-2" style="padding:0px 0px 10px 0px;">
+					<div class="controls">
+						<a id="preview3">
+						    <if condition="$price[0]['carc_img'] neq null">
+						    	<img id='imghead4' src="http://101.201.148.160/car/Public/upload/img/{$price[0]['carc_img']}" style="max-width:143px;height:auto;">
+						    </if>
+						    <if condition="$price[0]['carc_img'] eq null">
+						    	<img id='imghead4' src="http://101.201.148.160/car/Public/upload/img/test.jpg" style="max-width:143px;height:auto;">
+						    </if>
+						</a>
+						<input id="piccc" name="piccc" class="input-medium" type="file" onChange="previewImage3(this)"  style="margin-bottom:10px;width: 65px;">
+					</div>
+				</div>
+				<div class="col-md-2" style="padding:0px 0px 10px 0px;">
+					<div class="controls">
+						<a id="preview4">
+						    <if condition="$price[0]['card_img'] neq null">
+						    	<img id='imghead5' src="http://101.201.148.160/car/Public/upload/img/{$price[0]['card_img']}" style="max-width:143px;height:auto;">
+						    </if>
+						    <if condition="$price[0]['card_img'] eq null">
+						    	<img id='imghead5' src="http://101.201.148.160/car/Public/upload/img/test.jpg" style="max-width:143px;height:auto;">
+						    </if>
+						</a>
+						<input id="picccc" name="picccc" class="input-medium" type="file" onChange="previewImage4(this)"  style="margin-bottom:10px;width: 65px;">
+					</div>
+				</div>
+			</div>
+
+
+<div class="form-group">
+	<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">报价1:</label>
+	<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+		<input type="text" class="form-control" name="tianone" id="tianone" placeholder="" value="{$price[0]['tianone']}">
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">价格:</label>
+	<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+		<input type="text" class="form-control" name="jiaone" id="jiaone" placeholder="" value="{$price[0]['jiaone']}">
+				　
+		<select class="form-control" name='huobi1'>
+			<volist name='price' id='vo'>
+				<if condition="$vo['huobi1'] eq '美元'">
+				<option value="人民币">人民币</option>
+				<option value="美元" selected="selected">美元</option>
+				<option value="欧元">欧元</option>
+				</if>
+				<if condition="$vo['huobi1'] eq '人民币'">
+				<option value="人民币" selected="selected">人民币</option>
+				<option value="美元">美元</option>
+				<option value="欧元">欧元</option>
+				</if>
+				<if condition="$vo['huobi1'] eq '欧元'">
+				<option value="人民币">人民币</option>
+				<option value="美元">美元</option>
+				<option value="欧元" selected="selected">欧元</option>
+				</if>
+			</volist>
+		</select>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">报价2:</label>
+	<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+		<input type="text" class="form-control" name="tiantwo" id="tiantwo" placeholder="" value="{$price[0]['tiantwo']}">
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">价格:</label>
+	<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+		<input type="text" class="form-control" name="jiatwo" id="jiatwo" placeholder="" value="{$price[0]['jiatwo']}">
+				　
+		<select class="form-control" name='huobi2'>
+			<volist name='price' id='vo'>
+				<if condition="$vo['huobi2'] eq '美元'">
+				<option value="人民币">人民币</option>
+				<option value="美元" selected="selected">美元</option>
+				<option value="欧元">欧元</option>
+				</if>
+				<if condition="$vo['huobi2'] eq '人民币'">
+				<option value="人民币" selected="selected">人民币</option>
+				<option value="美元">美元</option>
+				<option value="欧元">欧元</option>
+				</if>
+				<if condition="$vo['huobi2'] eq '欧元'">
+				<option value="人民币">人民币</option>
+				<option value="美元">美元</option>
+				<option value="欧元" selected="selected">欧元</option>
+				</if>
+			</volist>
+		</select>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">商品详情</label>
+	<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+		<textarea name="xiangqing" style="width:730px;height:200px;">{$price[0]['xiangqing']}</textarea>
+	</div>
+</div>
+
+
+
+			<div class="form-group">
+					<div class="btn-toolbar list-toolbar col-md-offset-2 col-md-10" style="margin-top:20px;margin-bottom:20px;">
+				    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保 存</button>
+					<a href="{:U('price_list')}" class="btn btn-danger" style="margin-left: 60px;"><i class="glyphicon glyphicon-list"></i> 返回列表</a>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript" src="__JS__/jquery-1.11.1.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__STYLE__/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__STYLE__/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__STYLE__/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__STYLE__/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript">
+	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
+		language:'zh-CN',
+    });
+	
+	$(document).ready(function() {
+				$("input[name='price_display'][value='{$price[0]['price_display']}']").attr("checked",true);
+				$("input[name='tejia'][value='{$price[0]['tejia']}']").attr("checked",true);
+				$("input[name='newcar'][value='{$price[0]['newcar']}']").attr("checked",true);
+				$("select[name='factory_id']").val("{$price[0]['factory_id']}");
+				$("select[name='chexing_id']").val("{$price[0]['chexing_id']}");
+				$("select[name='year_id']").val("{$price[0]['year_id']}");
+				$("select[name='guige_id']").val("{$price[0]['guige_id']}");
+				$("select[name='company_id']").val("{$price[0]['company_id']}");
+				$("select[name='nowprice']").val("{$price[0]['nowprice']}");
+				$("select[name='huobi1']").val("{$price[0]['huobi1']}");
+				// 先赋值，再初始化
+			$(".chzn-select").chosen();
+			});
+	</script>
+	<script>
+		//图片上传
+		function previewImage(file)
+		{
+		var MAXWIDTH  = 260;
+		var MAXHEIGHT = 100;
+		var div = document.getElementById('preview');
+		if (file.files && file.files[0])
+		{
+		div.innerHTML ='<img id=imghead1>';
+		var img = document.getElementById('imghead1');
+		img.onload = function(){
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		img.width  =  rect.width;
+		img.height =  rect.height;
+		//                 img.style.marginLeft = rect.left+'px';
+		img.style.marginTop = rect.top+'px';
+		}
+		var reader = new FileReader();
+		reader.onload = function(evt){img.src = evt.target.result;}
+		reader.readAsDataURL(file.files[0]);
+		}
+		else //兼容IE
+		{
+		var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		file.select();
+		var src = document.selection.createRange().text;
+		div.innerHTML = '<img id=imghead1>';
+		var img = document.getElementById('imghead1');
+		img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		}
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		var param = {top:0, left:0, width:width, height:height};
+		if( width>maxWidth || height>maxHeight )
+		{
+		rateWidth = width / maxWidth;
+		rateHeight = height / maxHeight;
+		
+		if( rateWidth > rateHeight )
+		{
+		param.width =  maxWidth;
+		param.height = Math.round(height / rateWidth);
+		}else
+		{
+		param.width = Math.round(width / rateHeight);
+		param.height = maxHeight;
+		}
+		}
+		
+		param.left = Math.round((maxWidth - param.width) / 2);
+		param.top = Math.round((maxHeight - param.height) / 2);
+		return param;
+		}
+				window.document.onkeydown = function(e) {
+					if ('' == document.activeElement.id) {
+						var e=e || event;
+						var currKey=e.keyCode || e.which || e.charCode;
+						if (8 == currKey) {
+							return false;
+						}
+					}
+				};
+
+			$(document).ready(function() {
+				$("input[name='factory_display'][value='{$factory[0]['factory_display']}']").attr("checked",true);
+			});
+		</script>
+		<script>
+		//图片上传
+		function previewImage3(file)
+		{
+		var MAXWIDTH  = 260;
+		var MAXHEIGHT = 100;
+		var div = document.getElementById('preview3');
+		if (file.files && file.files[0])
+		{
+		div.innerHTML ='<img id=imghead4>';
+		var img = document.getElementById('imghead4');
+		img.onload = function(){
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		img.width  =  rect.width;
+		img.height =  rect.height;
+		//                 img.style.marginLeft = rect.left+'px';
+		img.style.marginTop = rect.top+'px';
+		}
+		var reader = new FileReader();
+		reader.onload = function(evt){img.src = evt.target.result;}
+		reader.readAsDataURL(file.files[0]);
+		}
+		else //兼容IE
+		{
+		var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		file.select();
+		var src = document.selection.createRange().text;
+		div.innerHTML = '<img id=imghead4>';
+		var img = document.getElementById('imghead4');
+		img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		}
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		var param = {top:0, left:0, width:width, height:height};
+		if( width>maxWidth || height>maxHeight )
+		{
+		rateWidth = width / maxWidth;
+		rateHeight = height / maxHeight;
+		
+		if( rateWidth > rateHeight )
+		{
+		param.width =  maxWidth;
+		param.height = Math.round(height / rateWidth);
+		}else
+		{
+		param.width = Math.round(width / rateHeight);
+		param.height = maxHeight;
+		}
+		}
+		
+		param.left = Math.round((maxWidth - param.width) / 2);
+		param.top = Math.round((maxHeight - param.height) / 2);
+		return param;
+		}
+				window.document.onkeydown = function(e) {
+					if ('' == document.activeElement.id) {
+						var e=e || event;
+						var currKey=e.keyCode || e.which || e.charCode;
+						if (8 == currKey) {
+							return false;
+						}
+					}
+				};
+
+			$(document).ready(function() {
+				$("input[name='factory_display'][value='{$factory[0]['factory_display']}']").attr("checked",true);
+			});
+		</script>
+		<script>
+		//图片上传
+		function previewImage4(file)
+		{
+		var MAXWIDTH  = 260;
+		var MAXHEIGHT = 100;
+		var div = document.getElementById('preview4');
+		if (file.files && file.files[0])
+		{
+		div.innerHTML ='<img id=imghead5>';
+		var img = document.getElementById('imghead5');
+		img.onload = function(){
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		img.width  =  rect.width;
+		img.height =  rect.height;
+		//                 img.style.marginLeft = rect.left+'px';
+		img.style.marginTop = rect.top+'px';
+		}
+		var reader = new FileReader();
+		reader.onload = function(evt){img.src = evt.target.result;}
+		reader.readAsDataURL(file.files[0]);
+		}
+		else //兼容IE
+		{
+		var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		file.select();
+		var src = document.selection.createRange().text;
+		div.innerHTML = '<img id=imghead5>';
+		var img = document.getElementById('imghead5');
+		img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		}
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		var param = {top:0, left:0, width:width, height:height};
+		if( width>maxWidth || height>maxHeight )
+		{
+		rateWidth = width / maxWidth;
+		rateHeight = height / maxHeight;
+		
+		if( rateWidth > rateHeight )
+		{
+		param.width =  maxWidth;
+		param.height = Math.round(height / rateWidth);
+		}else
+		{
+		param.width = Math.round(width / rateHeight);
+		param.height = maxHeight;
+		}
+		}
+		
+		param.left = Math.round((maxWidth - param.width) / 2);
+		param.top = Math.round((maxHeight - param.height) / 2);
+		return param;
+		}
+				window.document.onkeydown = function(e) {
+					if ('' == document.activeElement.id) {
+						var e=e || event;
+						var currKey=e.keyCode || e.which || e.charCode;
+						if (8 == currKey) {
+							return false;
+						}
+					}
+				};
+
+			$(document).ready(function() {
+				$("input[name='factory_display'][value='{$factory[0]['factory_display']}']").attr("checked",true);
+			});
+		</script>
+		<script>
+		//图片上传
+		function previewImage1(file)
+		{
+		var MAXWIDTH  = 260;
+		var MAXHEIGHT = 100;
+		var div = document.getElementById('preview1');
+		if (file.files && file.files[0])
+		{
+		div.innerHTML ='<img id=imghead2>';
+		var img = document.getElementById('imghead2');
+		img.onload = function(){
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		img.width  =  rect.width;
+		img.height =  rect.height;
+		//                 img.style.marginLeft = rect.left+'px';
+		img.style.marginTop = rect.top+'px';
+		}
+		var reader = new FileReader();
+		reader.onload = function(evt){img.src = evt.target.result;}
+		reader.readAsDataURL(file.files[0]);
+		}
+		else //兼容IE
+		{
+		var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		file.select();
+		var src = document.selection.createRange().text;
+		div.innerHTML = '<img id=imghead2>';
+		var img = document.getElementById('imghead2');
+		img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		}
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		var param = {top:0, left:0, width:width, height:height};
+		if( width>maxWidth || height>maxHeight )
+		{
+		rateWidth = width / maxWidth;
+		rateHeight = height / maxHeight;
+		
+		if( rateWidth > rateHeight )
+		{
+		param.width =  maxWidth;
+		param.height = Math.round(height / rateWidth);
+		}else
+		{
+		param.width = Math.round(width / rateHeight);
+		param.height = maxHeight;
+		}
+		}
+		
+		param.left = Math.round((maxWidth - param.width) / 2);
+		param.top = Math.round((maxHeight - param.height) / 2);
+		return param;
+		}
+				window.document.onkeydown = function(e) {
+					if ('' == document.activeElement.id) {
+						var e=e || event;
+						var currKey=e.keyCode || e.which || e.charCode;
+						if (8 == currKey) {
+							return false;
+						}
+					}
+				};
+
+			$(document).ready(function() {
+				$("input[name='factory_display'][value='{$factory[0]['factory_display']}']").attr("checked",true);
+			});
+		</script>
+		<script>
+		//图片上传
+		function previewImage2(file)
+		{
+		var MAXWIDTH  = 260;
+		var MAXHEIGHT = 100;
+		var div = document.getElementById('preview2');
+		if (file.files && file.files[0])
+		{
+		div.innerHTML ='<img id=imghead3>';
+		var img = document.getElementById('imghead3');
+		img.onload = function(){
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		img.width  =  rect.width;
+		img.height =  rect.height;
+		//                 img.style.marginLeft = rect.left+'px';
+		img.style.marginTop = rect.top+'px';
+		}
+		var reader = new FileReader();
+		reader.onload = function(evt){img.src = evt.target.result;}
+		reader.readAsDataURL(file.files[0]);
+		}
+		else //兼容IE
+		{
+		var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		file.select();
+		var src = document.selection.createRange().text;
+		div.innerHTML = '<img id=imghead3>';
+		var img = document.getElementById('imghead3');
+		img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		}
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		var param = {top:0, left:0, width:width, height:height};
+		if( width>maxWidth || height>maxHeight )
+		{
+		rateWidth = width / maxWidth;
+		rateHeight = height / maxHeight;
+		
+		if( rateWidth > rateHeight )
+		{
+		param.width =  maxWidth;
+		param.height = Math.round(height / rateWidth);
+		}else
+		{
+		param.width = Math.round(width / rateHeight);
+		param.height = maxHeight;
+		}
+		}
+		
+		param.left = Math.round((maxWidth - param.width) / 2);
+		param.top = Math.round((maxHeight - param.height) / 2);
+		return param;
+		}
+				window.document.onkeydown = function(e) {
+					if ('' == document.activeElement.id) {
+						var e=e || event;
+						var currKey=e.keyCode || e.which || e.charCode;
+						if (8 == currKey) {
+							return false;
+						}
+					}
+				};
+
+			$(document).ready(function() {
+				$("input[name='factory_display'][value='{$factory[0]['factory_display']}']").attr("checked",true);
+			});
+		</script>
+</block>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+	<title>车型列表</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<style>
+	.top{
+		 text-align:left; 
+		border:2px solid #a1a1a1;
+		padding:0px 10px; 
+		background:#ffffff;
+		width:90%;
+		border-radius:15px;
+		/*-moz-border-radius:25px; /* 老的 Firefox */
+	}
+	.cent{width:100%;margin-left:50%;}
+</style>
+</head>
+<body>
+
+<center>
+	<div class="top">
+		<img src="__PICURL__/{$factory[0]['factory_img']}" width="25px" height="25px" style="margin-top:8px"/>
+		<div style="float:right; width:86%;">
+			<!-- <font size="4">{$factory[0]['factory_name_ch']}</font> -->
+			<span style=" height:45px; line-height:45px; padding-top:15px;">{$factory[0]['factory_name_ch']}</span>
+		</div>
+	</div>
+</center>
+<div style="width:100%; height:auto;">
+<volist name='chexing' id='vo'>
+  <div style="width:90%; margin:10px auto;">
+  <a href="{:U('car_list',array('factory_id'=>$vo['factory_id'],'chexing_id'=>$vo['id']))}">
+     <div class="clearfix">
+        <div style="float:left; width:35%;">
+        	<img src="__PICURL__/{$vo['chexing_img']}" style="width:100%;" />
+        </div>
+
+        <div style="float:right; width:60%;">
+        	<p style="color:#0480B1;font-size:18px;">{$vo['chexing_name_ch']}</p>
+			<p style="color:#888888;font-size:12px;">指导价:{$vo['guide_price']}万</p>
+        </div>
+        <div style="float:left; width:5%;">
+        	<img src="http://101.201.148.160/car/Public/images/jiantou.png" style="margin-left: 1180%;margin-top:22px;"/>
+        </div>
+     </div>
+  </a>
+  </div><br/>
+<hr width="90%" />
+</volist>
+</div>
+</body>
+</html>

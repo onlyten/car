@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>车型报价</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+		<link type="text/css" href="css/lrtk.css" rel="stylesheet" />
+		<link rel="stylesheet" href="__CSS__/flickity-docs.css" media="screen">
+		<link type="text/css" href="css/prettyPhoto.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+		<script type="text/javascript" src="js/lrtk.js"></script>
+		<script src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+		<script type="text/javascript" src="__JS__/store.js"></script>
+		<style type="text/css">
+			.a_active{
+				color: #9900CC;
+			}
+			.a_unactive{
+				color: #808285;
+			}
+			.div_active{
+				background: #099fde;
+			}
+			.div_unactive{
+				background: #f9f9f9;
+			}
+			.wangzhi a:visited{
+				color: #099fde;
+				text-decoration: none;
+			}
+			.wangzhi a:hover{
+				color: #099fde;
+				text-decoration: none;
+			}
+			a:hover{
+				color: #9900CC;
+				text-decoration: none;
+			}
+		</style>
+	</head>
+	<body>
+	
+			<div class="col-sm-12" style="background: #099fde;text-align:center;color:#fff;font: 600 1.286em/2 Tahoma;height:50px;line-height:50px;">车型报价</div>
+					<input type="hidden" value="1" id="tab_active">
+			</div>
+	  
+		<!-- Modal -->
+		<foreach name="price_guige" item="value" key="key" >	
+				<div class="modal-header">
+					<h4 align="center" class="modal-title" >{$value['year_name_ch']}{$value['kuanxing_name_ch']}{$value['factory_name_ch']}{$value['chexing_name_ch']}{$value['guige_name_ch']}</h4>
+				</div>
+	            
+
+
+
+
+
+<script type="text/javascript" src="http://serv2.matesofts.com/aishang/Public/Home/js/TouchSlide.js"></script>
+	<link href="http://serv2.matesofts.com/aishang/Public/Home/css/TouchSlide.css" rel="stylesheet" type="text/css">
+	<div id="focus" class="focus">
+		<div class="hd">
+		<ul><li class="on">1</li></ul>
+		</div>
+		<div class="bd">
+		<div class="tempWrap" style="overflow:hidden; position:relative;"><ul style="width: 100%; margin-left: 0px;">
+			<if condition="$value['car_img'] neq null">
+					<a href="http://101.201.148.160/car/Public/upload/img/{$value['car_img']}">
+						<li style="float: left; display: block;"><img src="http://101.201.148.160/car/Public/upload/img/{$value['car_img']}" width="100%" border="0" alt="" id="img-mwsf-14" class="photo"></li>
+					</a>
+			</if>
+			<if condition="$value['cara_img'] neq null">
+					<a href="http://101.201.148.160/car/Public/upload/img/{$value['cara_img']}">
+						<li style="float: left; display: block;"><img src="http://101.201.148.160/car/Public/upload/img/{$value['cara_img']}" width="100%" border="0" alt="" id="img-mwsf-14" class="photo"></li>
+					</a>
+			</if>
+			<if condition="$value['carb_img'] neq null">
+					<a href="http://101.201.148.160/car/Public/upload/img/{$value['carb_img']}">
+						<li style="float: left; display: block;"><img src="http://101.201.148.160/car/Public/upload/img/{$value['carb_img']}" width="100%" border="0" alt="" id="img-mwsf-14" class="photo"></li>
+					</a>
+			</if>
+			<if condition="$value['carc_img'] neq null">
+					<a href="http://101.201.148.160/car/Public/upload/img/{$value['carc_img']}">
+						<li style="float: left; display: block;"><img src="http://101.201.148.160/car/Public/upload/img/{$value['carc_img']}" width="100%" border="0" alt="" id="img-mwsf-14" class="photo"></li>
+					</a>
+			</if>
+			<if condition="$value['card_img'] neq null">
+					<a href="http://101.201.148.160/car/Public/upload/img/{$value['card_img']}">
+						<li style="float: left; display: block;"><img src="http://101.201.148.160/car/Public/upload/img/{$value['card_img']}" width="100%" height="100%" border="0" alt="" id="img-mwsf-14" class="photo"></li>
+					</a>
+			</if>
+			<if condition="($value['car_img'] eq null) AND ($value['cara_img'] eq null) AND ($value['carb_img'] eq null) AND ($value['carc_img'] eq null) AND ($value['card_img'] eq null) ">
+				<a href="http://101.201.148.160/car/Public/images/3222725834.jpg">
+				<li style="float: left; display: block;"><img src="http://101.201.148.160/car/Public/images/3222725834.jpg" width="100%" border="0" alt="" id="img-mwsf-14" class="photo"></li>
+				</a>
+			</if>
+		</ul></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+			TouchSlide({ 
+			slideCell:"#focus",
+			titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+			mainCell:".bd ul",
+			delayTime:600,
+			interTime:4000,
+			effect:"leftLoop", 
+			autoPlay:true,//自动播放
+			autoPage:true, //自动分页
+			switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		});
+	</script>
+
+
+
+
+
+<div>
+
+
+
+
+
+
+
+
+
+						<div class="modal-body" style="min-height:240px;">
+							
+							<div class="col-xs-12 col-sm-12" style="padding:0px 0px 15px 0px;">
+								<span class="col-xs-12 col-sm-12" style="padding:0px;"><strong>参数：</strong></span>
+								<div class="col-xs-12 col-sm-12" style="padding:0px 15px 0px 15px;">{$value['canshu']|htmlspecialchars_decode}</div>
+								<!-- <span class="col-xs-5 col-sm-5">长×宽×高：</span>
+								<span class="col-xs-7 col-sm-7">4700×940×1400</span>
+								<span class="col-xs-5 col-sm-5">功&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率：</span>
+								<span class="col-xs-7 col-sm-7">150匹</span>
+								<span class="col-xs-5 col-sm-5">轴&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;距：</span>
+								<span class="col-xs-7 col-sm-7">4700</span>
+								<span class="col-xs-5 col-sm-5">油&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;耗：</span>
+								<span class="col-xs-7 col-sm-7">10个</span> -->
+								
+							</div>
+
+							<div class="col-xs-12 col-sm-12" style="padding:15px 0px 0px 0px;border-top:1px solid #CCCCCC;">
+								<span class="col-xs-12 col-sm-12" style="padding:0px;"><strong>配置：</strong></span>
+								<div class="col-xs-12 col-sm-12" style="padding:0px 15px 0px 15px;">{$value['peizhi']|htmlspecialchars_decode}</div>
+								<!-- <span class="col-xs-12 col-sm-12">真皮座椅</span>
+								<span class="col-xs-12 col-sm-12">高级天窗</span>
+								<span class="col-xs-12 col-sm-12">四区恒温空调</span> -->
+							</div>
+						</div>
+</div>
+						<div class="modal-footer">
+						<center>
+							<a class="back" href="javascript:history.back();"><button type="button" class="btn btn-default" data-dismiss="modal">关&nbsp;闭</button>
+							</a>
+						</center>
+						</div>
+		</foreach>
+
+		
+		</div>
+
+		<script type="text/javascript">
+		// iphone手机要绑定click事件modal才显示
+		$('#div_search').on('click', function() {
+			// alert('123');
+		});
+
+		$('#factory').on('change', function() {
+			$.ajax({
+				type: "POST",
+		        url: "{:U('chexing_select')}",
+		        dataType: "json",
+		        data: "factory_id="+$('#factory').val(),
+		        success: function(msg){
+		        	html_chexing = "<option value=''>请选择</option>";
+		            $(msg).each(function(){ //遍历json数组
+				        html_chexing += "<option value=\""+this.id+"\">"+this.chexing_name_ch+"</option>";
+			        }); 
+			        $("#chexing").empty();
+		            $("#chexing").append(html_chexing);
+   
+		        }
+		    });
+		});
+	
+		});
+
+		</script>
+		<script type="text/javascript">
+$(document).ready(function(){	
+	$("area[rel^='prettyPhoto']").prettyPhoto();
+	$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+})
+</script>
+		
+	</body>
+</html>

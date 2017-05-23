@@ -1,0 +1,86 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">添加款型</h1>
+        <ul class="breadcrumb">
+            <li>车型管理</li>
+            <li class="active">添加款型</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+	<div class="main-content">
+		<form enctype="multipart/form-data" onsubmit="return checkForm()" action="{:U('kuanxing_add_update')}" method="post" >
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">款型名称: <span style="color:red">*</span></label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="kuanxing_name_ch" id="kuanxing_name_ch" placeholder="必填项" value="">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">是否显示: <span style="color:red">*</span></label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="kuanxing_display" id="kuanxing_display" value="1" checked="checked"> 显示
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="kuanxing_display" id="kuanxing_display" value="0"> 不显示
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">排序: <span style="color:red">*</span></label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="kuanxing_weight" id="kuanxing_weight" placeholder="必填项,请输入数字，数字越大排序越靠前" value="">
+				</div>
+			</div>
+			<div class="form-group">
+					<div class="btn-toolbar list-toolbar col-md-offset-2 col-md-10" style="margin-top:20px;margin-bottom:20px;">
+				    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保 存</button>
+					<a href="{:U('kuanxing_list')}" class="btn btn-danger"><i class="glyphicon glyphicon-list"></i> 返回列表</a>
+			</div>
+		</form>
+		<script type="text/javascript">
+		function checkForm(){
+			       var x=document.getElementById("kuanxing_name_ch").value;
+				   if ((x == null) || (x.length == 0))
+				   {
+					   alert("款型名称不能为空！");
+					   return false;
+				   }
+				   var m=document.getElementById("kuanxing_weight").value;
+
+				   if ((m == null) || (m.length == 0))
+				   {
+					   alert("排序不能为空！");
+					   return false;
+				   }
+          }
+			$('#kuanxing_name_ch').on('blur', function() {
+				$.ajax({
+					type: "POST",
+			        url: "{:U('kuanxing_check')}",
+			        contentType:"application/x-www-form-urlencoded;charset=utf-8", 
+			        dataType: "json",
+			        data: {kuanxing_name_ch:$('#kuanxing_name_ch').val()},
+			        success: function(msg){
+        				alert(msg.info);        	  
+			        }
+			    });
+			});
+			$('#kuanxing_weight').on('blur', function() {
+				$.ajax({
+					type: "POST",
+			        url: "{:U('kuanxing_check')}",
+			        contentType:"application/x-www-form-urlencoded;charset=utf-8", 
+			        dataType: "json",
+			        data: {kuanxing_weight:$('#kuanxing_weight').val()},
+			        success: function(msg){
+        				alert(msg.info);        	  
+			        }
+			    });
+			});
+		</script>
+	</div>
+</block>

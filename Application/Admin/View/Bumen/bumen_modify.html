@@ -1,0 +1,50 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">修改部门</h1>
+        <ul class="breadcrumb">
+            <li>内部管理</li>
+            <li class="active">修改部门</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+	<div class="main-content">
+		<form enctype="multipart/form-data" action="{:U('bumen_modify_update',array('bumen_id'=>$bumen[0]['id']))}" method="post" >
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">部门名称</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="bumen_name_ch" id="bumen_name_ch" placeholder="" value="{$bumen[0]['bumen_name_ch']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">是否显示</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="bumen_display" id="bumen_display" value="1"> 显示
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="bumen_display" id="bumen_display" value="0"> 不显示
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">排序</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="bumen_weight" id="bumen_weight" placeholder="" value="{$bumen[0]['bumen_weight']}">
+				</div>
+			</div>
+			<div class="form-group">
+					<div class="btn-toolbar list-toolbar col-md-offset-2 col-md-10" style="margin-top:20px;margin-bottom:20px;">
+				    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保 存</button>
+					<a href="{:U('bumen_list')}" class="btn btn-danger"><i class="glyphicon glyphicon-list"></i> 返回列表</a>
+			</div>
+		</form>
+	</div>
+	<script>
+	$(document).ready(function() {
+				$("input[name='bumen_display'][value='{$bumen[0]['bumen_display']}']").attr("checked",true);
+			});
+	</script>
+</block>

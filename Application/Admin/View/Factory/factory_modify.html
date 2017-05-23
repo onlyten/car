@@ -1,0 +1,154 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">修改厂商</h1>
+        <ul class="breadcrumb">
+            <li>车型管理</li>
+            <li class="active">修改厂商</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+	<div class="main-content">
+		<form enctype="multipart/form-data" action="{:U('factory_modify_update',array('factory_id'=>$factory[0]['id']))}" method="post" >
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">厂商中文名</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="factory_name_ch" id="factory_name_ch" placeholder="" value="{$factory[0]['factory_name_ch']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">厂商英文名</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="factory_name_en" id="factory_name_en" placeholder="" value="{$factory[0]['factory_name_en']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">厂商拼音名</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="factory_name_py" id="factory_name_py" placeholder="" value="{$factory[0]['factory_name_py']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">热门品牌</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="rexiao" id="rexiao" value="1"> 是
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="rexiao" id="rexiao" value="0"> 否
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">是否显示</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<label class="radio-inline">
+					  <input type="radio" name="factory_display" id="factory_display" value="1"> 显示
+					</label>
+					<label class="radio-inline">
+					  <input type="radio" name="factory_display" id="factory_display" value="0"> 不显示
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">排序</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<input type="text" class="form-control" name="factory_weight" id="factory_weight" placeholder="" value="{$factory[0]['factory_weight']}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label for="insertimage"class="col-md-12 control-label" style="padding:0px 0px 5px 0px;">厂商图标:</label>
+				<div class="col-md-6" style="padding:0px 0px 10px 0px;">
+					<div class="controls">
+						<a id="preview">
+						    <img id='imghead1' src="__PICURL__/{$factory[0]['factory_img']}" style="max-width:200px;height:auto;">
+						</a>
+						<input id="picurl" name="picurl" class="input-medium" type="file" onChange="previewImage(this)"  style="margin-bottom:10px;">
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="form-group">
+					<div class="btn-toolbar list-toolbar col-md-offset-2 col-md-10" style="margin-top:20px;margin-bottom:20px;">
+				    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保 存</button>
+					<a href="{:U('factory_list')}" class="btn btn-danger"><i class="glyphicon glyphicon-list"></i> 返回列表</a>
+			</div>
+		</form>
+		<script>
+		//图片上传
+		function previewImage(file)
+		{
+		var MAXWIDTH  = 260;
+		var MAXHEIGHT = 100;
+		var div = document.getElementById('preview');
+		if (file.files && file.files[0])
+		{
+		div.innerHTML ='<img id=imghead1>';
+		var img = document.getElementById('imghead1');
+		img.onload = function(){
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		img.width  =  rect.width;
+		img.height =  rect.height;
+		//                 img.style.marginLeft = rect.left+'px';
+		img.style.marginTop = rect.top+'px';
+		}
+		var reader = new FileReader();
+		reader.onload = function(evt){img.src = evt.target.result;}
+		reader.readAsDataURL(file.files[0]);
+		}
+		else //兼容IE
+		{
+		var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+		file.select();
+		var src = document.selection.createRange().text;
+		div.innerHTML = '<img id=imghead1>';
+		var img = document.getElementById('imghead1');
+		img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+		var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+		status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+		div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+		}
+		}
+		function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+		var param = {top:0, left:0, width:width, height:height};
+		if( width>maxWidth || height>maxHeight )
+		{
+		rateWidth = width / maxWidth;
+		rateHeight = height / maxHeight;
+		
+		if( rateWidth > rateHeight )
+		{
+		param.width =  maxWidth;
+		param.height = Math.round(height / rateWidth);
+		}else
+		{
+		param.width = Math.round(width / rateHeight);
+		param.height = maxHeight;
+		}
+		}
+		
+		param.left = Math.round((maxWidth - param.width) / 2);
+		param.top = Math.round((maxHeight - param.height) / 2);
+		return param;
+		}
+				window.document.onkeydown = function(e) {
+					if ('' == document.activeElement.id) {
+						var e=e || event;
+						var currKey=e.keyCode || e.which || e.charCode;
+						if (8 == currKey) {
+							return false;
+						}
+					}
+				};
+
+			$(document).ready(function() {
+				$("input[name='factory_display'][value='{$factory[0]['factory_display']}']").attr("checked",true);
+				$("input[name='rexiao'][value='{$factory[0]['rexiao']}']").attr("checked",true);
+			});
+		</script>
+		
+	</div>
+</block>

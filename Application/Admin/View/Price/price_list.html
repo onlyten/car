@@ -1,0 +1,222 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">报价管理</h1>
+        <ul class="breadcrumb">
+            <li>报价管理</li>
+            <li class="active">报价管理</li>
+        </ul>
+    </div>
+</block>
+<block name="main-content">
+<script src="__JS__/chosen.jquery.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/chosen.css">
+	<div class="main-content">
+	<form enctype="multipart/form-data" action="{:U('price_list')}" method="post" >
+		<div class="btn-toolbar list-toolbar col-md-6" style="border:1px solid #cccccc;margin:-20px 10px 10px 10px;height: 410px;">
+			<label class="control-label" style="float:left;">品牌名称&nbsp;&nbsp;</label>
+			<select class="form-control" name="search_condition" id="factory">
+			<option value="空">请选择</option>
+					<volist name='factory' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['factory_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">车型名称&nbsp;&nbsp;</label>
+			<select class="form-control" name="search_condition1" id="chexing">
+			<option value="空">请选择</option>
+			</select>
+			<label class="control-label" style="float:left;">年款&nbsp;&nbsp;</label>
+			<select class="form-control" name="search_condition2">
+			<option value="空">请选择</option>
+					<volist name='year' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['year_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">规格名称&nbsp;&nbsp;</label>
+			<select class="form-control" name="search_condition3" id="guige">
+			<option value="空">请选择</option>
+			</select>
+
+
+			<label class="control-label" style="float:left;">企业名称&nbsp;&nbsp;</label>
+			<select class="form-control" name="search_condition4">
+			<option value="空">请选择</option>
+					<volist name='company' id='vo'>
+					  <option value='{$vo['id']}'>{$vo['company_name_ch']}</option>
+					</volist>
+			</select>
+			<label class="control-label" style="float:left;">批号查询&nbsp;&nbsp;</label>
+		    <input type="text" class="form-control" style="width:100%;float:left;margin-top:1px;" name="search_condition5" />
+		    <button type="submit" class="btn btn-danger" name="price_search" style="width:100px;float:left;margin-top:10px;"><i class="glyphicon glyphicon-search"></i> 搜索</button>
+		</div></form><br><br><br><br><br><br><br><br><br><br><br>
+		<form enctype="multipart/form-data" action="{:U('price_delete_update')}" method="post" >
+			<div class="btn-toolbar list-toolbar col-md-12">　　　　　　　　　　　　　　　　　　　
+			    <div class='col-md-2'><a href="{:U('price_add')}" class="btn btn-primary" style="margin-left: 7px;"><i class="glyphicon glyphicon-plus"></i> 添加报价</a></div>　
+			    <div class='col-md-2'><button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> 删除报价</button></div>
+			</div>
+			<!-- <h1 class="page">Premium User List</h1> -->
+			<h3 class="page-tagline"></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-striped">
+						<thead>
+							<tr style="background: #0099FF;color:#FFFFFF">
+								<th>序号</th>
+								<th>厂商</th>
+								<th>车型中文名</th>
+								<th>规格名称</th>
+								<th>批号</th>
+								<th>总数</th>
+								<th>剩余数量</th>
+								<th>当前有效报价</th>
+								<th>是否显示</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='price' id='vo'>
+							<tr>
+								<td> <input type="checkbox" name="delete_id[]" value="{$vo['id']}">&nbsp;&nbsp;{$vo['id']}</td>
+								<td>{$vo['factory_name_ch']}</td>
+								<td>{$vo['chexing_name_ch']}</td>
+								<td>{$vo['guige_name_ch']}</td>
+								<td>{$vo['pihao']}</td>
+								<td>{$vo['sum']}</td>
+								<td>{$vo['surplus']}</td>
+								<td>{$vo['nowprice']}</td>
+								<td>
+									<if condition="$vo['price_display'] eq 1 ">是
+									    <else /> 否
+									</if>
+								</td>
+								<td>
+									<a href="{:U('price_modify',array('price_id'=>$vo['id']))}">编辑</a>&nbsp;&nbsp;
+									<a href="{:U('price_list',array('price_id'=>$vo['id']))}" onClick="wahaha()">激活下一报价</a>
+								</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</form>
+		<input type="text" value="all" id="page_condition" style="display:none;" />
+		<input type="text" value="" id="order_condition"  style="display:none;" />
+		<div class="result page" id='footer_div' style="text-align:center"><font id='wc'>共 {$price_count} 条记录  {$page_now}/{$price_pagenum} 页 </font>  <a class="pre_page" href="#">上一页</a>  <a class="next_page" href="#">下一页</a>  跳至<input style="width:25px;" class="jump_page" type="text"/> 页 &nbsp; <input type="button" class="btn btn-primary btn-sm jump_button" value="提交">  </div>
+		
+		
+		
+	</div>
+	<!-- 模板继承，js函数写到block里 -->
+	<script type="text/javascript">
+
+	$('#factory').on('change', function() {
+			$.ajax({
+				type: "POST",
+		        url: "{:U('chexing_select')}",
+		        dataType: "json",
+		        data: "factory_id="+$('#factory').val(),
+		        success: function(msg){
+		        	html_chexing = "<option value=''>请选择</option>";
+		            $(msg).each(function(){ //遍历json数组
+				        html_chexing += "<option value=\""+this.id+"\">"+this.chexing_name_ch+"</option>";
+			        }); 
+			        $("#chexing").empty();
+		            $("#chexing").append(html_chexing);
+   
+		        }
+		    });
+		});
+
+$('#chexing').on('change', function() {
+			$.ajax({
+				type: "POST",
+		        url: "{:U('guige_select')}",
+		        dataType: "json",
+		        data: "chexing_id="+$('#chexing').val(),
+		        success: function(msg){
+		        	html_guige = "<option value=''>请选择</option>";
+		            $(msg).each(function(){ //遍历json数组
+				        html_guige += "<option value=\""+this.id+"\">"+this.guige_name_ch+"</option>";
+			        }); 
+			        $("#guige").empty();
+		            $("#guige").append(html_guige);
+   
+		        }
+		    });
+		});
+	function wahaha(){
+	alert('操作成功!');
+	}
+		$('.next_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == {$price_pagenum}) {
+				alert('当前页为最后一页');
+			}else{
+				location.href = "{:U('price_list',array('page_now'=>$page_now+1))}";
+			};
+		});
+
+		$('.pre_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == 1) {
+				alert('当前页为第一页');
+			}else{
+				location.href = "{:U('price_list',array('page_now'=>$page_now-1))}";
+			};
+		});
+
+		$('.jump_button').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ( parseInt($('.jump_page').val()) < 1 || parseInt($('.jump_page').val()) > {$price_pagenum} ) {
+				alert('超过页数范围');
+			}else{
+				location.href = "{:U('price_list')}/page_now/"+$('.jump_page').val();
+			};
+		});
+
+		//$('#price_search').on('click', function() {
+		//location.href = //"{:U('price_list')}/search_condition/"+$('#search_condition')+'/search_condition1/'+$('#search_condition1').val()+'/search_condition2/'+$('#search_condition2').val()//;;
+		//})+'/search_condition3/'+$('#search_condition3').val()+'/search_condition4/'+$('#search_condition4').val();;
+
+		$(document).ready(function() {
+			if ('{$search_condition}' != '') {
+				$('#search_condition').val('{$search_condition}');
+			};
+			if ('{$search_condition1}' != '') {
+				$('#search_condition1').val('{$search_condition}1');
+			};
+			if ('{$search_condition2}' != '') {
+				$('#search_condition2').val('{$search_condition}2');
+			};
+			if ('{$search_condition3}' != '') {
+				$('#search_condition3').val('{$search_condition}3');
+			};
+			if ('{$search_condition4}' != '') {
+				$('#search_condition4').val('{$search_condition4}');
+			};
+			if ('{$search_condition5}' != '') {
+				$('#search_condition5').val('{$search_condition5}');
+			};
+			// 先赋值，再初始化
+			$(".chzn-select").chosen();
+		});
+
+		
+
+
+	</script>
+</block>
+
+
+		
+		
+
+
+		
+		

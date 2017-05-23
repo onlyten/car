@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>平台注册</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+		<script src="__JS__/jquery.min.js"></script>
+		<script type="text/javascript" src="__JS__/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+		<style type="text/css">
+			.a_active{
+				color: #099fde;
+			}
+			.a_unactive{
+				color: #808285;
+			}
+			.div_active{
+				background: #099fde;
+			}
+			.div_unactive{
+				background: #f9f9f9;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<!-- Stack the columns on mobile by making one full-width and the other half-width -->
+			<div class="row">
+				<div class="col-xs-12" style="background: #099fde;text-align:center;color:#fff;font: 600 1.286em/2 Tahoma;height:50px;line-height:50px;">平台注册</div>
+			</div>
+			<br>
+			<div class="col-sm-12" style="padding:0px;">
+				<form enctype="multipart/form-data" action="{:U('user_register_update')}" method="post" >
+					<!-- <div class="form-group col-xs-12" style="padding:0px;">
+						<div class="col-xs-6">
+							<label class="radio-inline">
+							  <input type="radio" name="user_type" class="user_type" value="0" checked="checked"> 商家用户
+							</label>
+						</div>
+						<div class="col-xs-6">
+							<label class="radio-inline">
+							  <input type="radio" name="user_type" class="user_type"  value="1" > 个人用户
+							</label>
+						</div>
+					</div> -->
+					
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>手机号</label>
+						</div>
+						<div class="col-xs-8" style="padding-left: 0px;">
+							<input type="tel" class="form-control"  name="user_phone" id="user_phone" placeholder="请输入手机号" value="" style="margin-left: -20px;">
+						</div>
+					</div>
+					
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>验证码</label>
+						</div>
+						<div class="col-xs-5" style="padding-left: 0px;">
+							<input type="tel" class="form-control"  name="code" id="code" placeholder="验证码" value="" style="margin-left: -20px;">
+							<!-- <a id="verify" style="float:right;margin-top:-25px"><span style="padding:10px 5px 6px 5px;background-color:#F8A200;"><font color="white">发送验证码</font></span></a> -->
+						</div>
+						<div class="col-xs-3">
+							<input type="button" class="btn btn-warning" id="haha" value="获取验证码" style="margin-left: -40px;" />
+						</div>
+					</div>
+
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>密码</label>
+						</div>
+						<div class="col-xs-8" style="padding-left: 0px;">
+							<input type="password" class="form-control"  name="user_password" id="user_password" placeholder="请输入密码" value="" style="margin-left: -20px;">
+						</div>
+					</div>
+
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>确认密码</label>
+						</div>
+						<div class="col-xs-8" style="padding-left: 0px;">
+							<input type="password" class="form-control"  name="user_password_confirm" id="user_password_confirm" placeholder="请再次输入密码" value="" style="margin-left: -20px;">
+						</div>
+					</div>
+
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;" id="company_div">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>公司名称</label>
+						</div>
+						<div class="col-xs-8" style="padding-left: 0px;">
+							<input type="text" class="form-control"  name="company_name" id="company_name" placeholder="请输入公司名称" value="" style="margin-left: -20px;">
+						</div>
+					</div>
+
+					<div class="form-group col-xs-12" style="padding:0px;margin-top:10px;" id="user_div">
+						<div class="col-xs-4" style="height:34px;line-height:34px;">
+							<label>真实姓名</label>
+						</div>
+						<div class="col-xs-8" style="padding-left: 0px;">
+							<input type="text" class="form-control"  name="user_name" id="user_name" placeholder="请输入您的姓名" value="" style="margin-left: -20px;">
+						</div>
+					</div>
+					
+					
+					
+					
+					<div class="form-group">
+						<div class="col-xs-offset-2 col-xs-10" style="margin-top:20px;margin-bottom:20px;">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">提 交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="reset"  class="btn btn-warning">重 置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		<br><br>
+			
+			
+			
+		</div>
+		
+		<script type="text/javascript">
+		var code1 = "";
+			$("form").submit( function () {
+			 //    if (!$("input:radio[name='user_type']").is(':checked')) {
+				// 	alert('请选择用户类型');
+				// 	return false;
+				// };
+				if ($('#user_phone').val() == '') {
+					alert('请输入手机号');
+					return false;
+				};
+				var codee = document.getElementById("code").value;
+				// alert(code1);
+				// alert(codee);
+				if ($('#code').val() != '') {
+					if(codee != code1){
+						alert("验证码不正确！");
+						return false;
+					}
+				};
+				if ($('#code').val() == '') {
+					alert('请输入验证码');
+					return false;
+				};
+				if (!tel_test($('#user_phone').val())) {
+					alert('请输入正确的手机号！');
+					return false;
+				};
+				if ($('#user_password').val() == '') {
+					alert('请输入密码');
+					return false;
+				};
+				if ($('#user_password_confirm').val() != $('#user_password').val()) {
+					alert('两次输入的密码不一致！');
+					return false;
+				};
+				if ($('#company_name').val() == '') {
+					alert('请输入公司名称');
+					return false;
+				};
+				if ($('#user_name').val() == '') {
+					alert('请输入真实姓名');
+					return false;
+				};
+				//商家
+				// if ($('input[name="user_type"]:checked').val() == '0') {
+				// 	if ($('#company_name').val() == '') {
+				// 		alert('请输入公司名称');
+				// 		return false;
+				// 	};
+				// };
+				//个人
+				// if ($('input[name="user_type"]:checked').val() == '1') {
+				// 	if ($('#user_name').val() == '') {
+				// 		alert('请输入真实姓名');
+				// 		return false;
+				// 	};
+				// };
+			} );
+
+			//电话
+			function tel_test (str) {
+				// alert(str);
+				// alert(str.length);
+				if (str.length > 6) {
+					var s = /^[0-9]*$/;
+					// alert(s.test(str));
+					return s.test(str);
+				}else{
+					return false;
+				};
+			}
+
+			// $(document).ready(function() {
+			// 	if ($('input[name="user_type"]:checked').val() == '0') {
+			// 		$('#company_div').show();
+			// 		$('#user_div').hide();
+			// 	};
+			// 	if ($('input[name="user_type"]:checked').val() == '1') {
+			// 		$('#company_div').hide();
+			// 		$('#user_div').show();
+			// 	};
+			// });
+
+			// $('input[name="user_type"]').on('change', function(event) {
+			// 	if ($('input[name="user_type"]:checked').val() == '0') {
+			// 		$('#company_div').show();
+			// 		$('#user_div').hide();
+			// 	};
+			// 	if ($('input[name="user_type"]:checked').val() == '1') {
+			// 		$('#company_div').hide();
+			// 		$('#user_div').show();
+			// 	};
+			// });
+
+
+
+
+			$mobile = $('#user_phone');
+
+			$('#haha').on('click', function(){
+
+				var $this = $(this);
+				$mobile = $('#user_phone');
+				mobile = $mobile.val();
+				
+				//alert(mobile);
+				var url = 'http://101.201.148.160/codecode.php?phone=' + mobile;
+
+				$.get(url, function(code) {
+					//alert("ok");
+					code1 = code;
+					//alert(code);
+				});
+
+			});
+			
+
+		
+		</script>
+		<script type="text/javascript">  
+var wait=60;  
+function time(o) {  
+        if($('#user_phone').val() != ''){
+        var regBox = {
+            regMobile : /^0?1[3|4|5|8][0-9]\d{8}$/,//手机
+        }
+ 
+        var mobile = document.getElementById("user_phone").value;
+        var mflag = regBox.regMobile.test(mobile);
+        if (!mflag) {
+            alert("请输入正确的手机号！");
+            return false;
+        }else{
+            if (wait == 0) {  
+                o.removeAttribute("disabled");            
+                o.value="免费获证码";  
+                wait = 60;
+            } else {  
+                o.setAttribute("disabled", true);  
+                o.value="重新发送(" + wait + ")";  
+                wait--;  
+                setTimeout(function() {  
+                time(o)  
+                },  
+                1000)  
+            }
+        };
+    }else{
+        alert("请先输入手机号！");
+    } 
+    }  
+document.getElementById("haha").onclick=function(){time(this);} 
+ 
+</script>
+		
+	</body>
+</html>

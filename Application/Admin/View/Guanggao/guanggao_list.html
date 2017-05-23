@@ -1,0 +1,150 @@
+<extend name="Public:base" />
+<!-- 需要继承的不用写，不需要继承（去掉的）要写，并且里面为空 -->
+<block name="main-header">
+	<div class="header">
+        <h1 class="page-title">广告管理</h1>
+        <ul class="breadcrumb">
+            <li>广告详情</li>
+            <li class="active">广告管理</li>
+        </ul>
+    </div>
+</block>
+
+<block name="style-header">
+ <link href="__STYLE__/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="__STYLE__/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.css">
+        <link rel="stylesheet" href="__CSS__/font-awesome.css">
+		 <link rel="stylesheet" type="text/css" href="__CSS__/theme.css">
+        <link rel="stylesheet" type="text/css" href="__CSS__/premium.css">
+		<script type="text/javascript" src="__JS__/bootstrap.js"></script>
+		<style>
+			form {
+				margin: 0;
+			}
+			textarea {
+				display: block;
+			}
+		</style>
+		<link rel="stylesheet" href="http://serv2.matesofts.com/aishang/Public/kindeditor/themes/default/default.css" />
+		<script charset="utf-8" src="http://serv2.matesofts.com/aishang/Public/kindeditor/kindeditor-min.js"></script>
+		<script charset="utf-8" src="http://serv2.matesofts.com/aishang/Public/kindeditor/lang/zh_CN.js"></script>
+		<script>
+			KindEditor.ready(function(K) {
+				K.create('textarea[name="guanggao_xiangqing"]', {
+					autoHeightMode : true,
+					afterCreate : function() {
+						this.loadPlugin('autoheight');
+					}
+				});
+			});
+		</script>
+</block>
+
+<block name="main-content">
+	<div class="main-content">
+		<div class="btn-toolbar list-toolbar col-md-6" style="border:1px solid #cccccc;margin:-20px 10px 10px 10px;height:56px;line-height:56px;">
+			<label class="control-label" style="float:left;">广告名称&nbsp;&nbsp;</label>
+		    <input type="text" class="form-control" style="width:50%;float:left;margin-top:10px;" id="search_condition" />
+		    <button class="btn btn-danger" id="guanggao_search" style="width:20%;float:left;margin-top:10px;"><i class="glyphicon glyphicon-search"></i> 搜索</button>
+		</div>
+		<form enctype="multipart/form-data" action="{:U('guanggao_delete_update')}" method="post" >
+			<div class="btn-toolbar list-toolbar col-md-12">
+				<if condition="$geshu egt '2' "><div class='col-md-2'> <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> 添加广告</a></div></if>　　　　　　　<if condition="$geshu lt '2' ">　　　　　　　　　　　　
+			    <div class='col-md-2'> <a href="{:U('guanggao_add')}" class="btn btn-primary"><i class="fa fa-plus"></i> 添加广告</a></div>
+					</if>
+			    <div class='col-md-2'><button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i> 删除广告</button></div>
+			</div>
+			<!-- <h1 class="page">Premium User List</h1> -->
+			<h3 class="page-tagline"></h3>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered">
+						<thead>
+							<tr style="background: #0099FF;color:#FFFFFF">
+								<th>序号</th>
+								<th>广告名</th>
+								<th>广告内容</th>
+								<th>广告图片</th>
+								
+								<th>广告链接</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='guanggao' id='vo'>
+							<tr>
+								<td> <input type="checkbox" name="delete_id[]" value="{$vo['id']}">&nbsp;&nbsp;{$vo['id']}</td>
+								<td>{$vo['guanggao_name']}</td>
+								<td>{$vo['guanggao_content']}</td>
+								
+								
+								<td><img class="media-object thumb-sm" src="http://101.201.148.160/car/Public/upload/img/{$vo['guanggao_img']}"></td>
+								
+								<td>{$vo['guanggao_lianjie']}</td>
+								<td>
+									<a href="{:U('guanggao_modify',array('guanggao_id'=>$vo['id']))}">编辑</a>&nbsp;&nbsp;
+									<!--<a href="{:U('Chexing/chexing_list',array('goods_id'=>$vo['id']))}">编辑厂商下车型</a>-->
+								</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+		</form>
+		<input type="text" value="all" id="page_condition" style="display:none;" />
+		<input type="text" value="" id="order_condition"  style="display:none;" />
+		<div class="result page" id='footer_div' style="text-align:center"><font id='wc'>共 {$guanggao_count} 条记录  {$page_now}/{$guanggao_pagenum} 页 </font>  <a class="pre_page" href="#">上一页</a>  <a class="next_page" href="#">下一页</a>  跳至<input style="width:25px;" class="jump_page" type="text"/> 页 &nbsp; <input type="button" class="btn btn-primary btn-sm jump_button" value="提交">  </div>
+	
+	</div>
+	<!-- 模板继承，js函数写到block里 -->
+	<script type="text/javascript">
+		$('.next_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == {$guanggao_pagenum}) {
+				alert('当前页为最后一页');
+			}else{
+				location.href = "{:U('guanggao_list',array('page_now'=>$page_now+1))}";
+			};
+		});
+
+		$('.pre_page').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ({$page_now} == 1) {
+				alert('当前页为第一页');
+			}else{
+				location.href = "{:U('guanggao_list',array('page_now'=>$page_now-1))}";
+			};
+		});
+
+		$('.jump_button').on('click', function() {
+			order_condition = $('#order_condition').val();
+			page_condition = $('#page_condition').val();
+			if ( parseInt($('.jump_page').val()) < 1 || parseInt($('.jump_page').val()) > {$guanggao_pagenum} ) {
+				alert('超过页数范围');
+			}else{
+				location.href = "{:U('guanggao_list')}/page_now/"+$('.jump_page').val();
+			};
+		});
+
+		$('#guanggao_search').on('click', function() {
+			location.href = "{:U('guanggao_list')}/search_condition/"+$('#search_condition').val();
+		});
+
+		$(document).ready(function() {
+			if ('{$search_condition}' != '') {
+				$('#search_condition').val('{$search_condition}');
+			};
+		});
+	</script>
+</block>
+
+
+		
+		
